@@ -7,12 +7,6 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -151,16 +145,6 @@ export default function Navbar() {
                 </motion.div>
               </Button>
             </motion.div>
-            <motion.div variants={itemVariants}>
-              <Button className="rounded-full px-8 bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_200%] animate-gradient hover:scale-105 transition-transform duration-300">
-                <SignedOut>
-                  <SignInButton />
-                </SignedOut>
-                <SignedIn>
-                  <UserButton />
-                </SignedIn>
-              </Button>
-            </motion.div>
           </div>
 
           <div className="md:hidden flex items-center space-x-4">
@@ -231,19 +215,6 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
               ))}
-              <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }}>
-                <Button
-                  className="w-full rounded-full mt-4 bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_200%] animate-gradient"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <SignedOut>
-                    <SignInButton />
-                  </SignedOut>
-                  <SignedIn>
-                    <UserButton />
-                  </SignedIn>
-                </Button>
-              </motion.div>
             </div>
           </motion.div>
         )}

@@ -4,10 +4,6 @@ import { Providers } from "./providers";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
-// Clerk setup
-import { ClerkProvider } from "@clerk/nextjs";
-
-
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -30,15 +26,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body className={inter.className} suppressHydrationWarning={true}>
-          <Providers>
-          <Navbar/>
-            {children}
-            </Providers>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className} suppressHydrationWarning={true}>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
+      </body>
+    </html>
   );
 }
