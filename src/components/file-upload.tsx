@@ -1,7 +1,8 @@
+
 "use client";
 
 import { useState } from "react";
-import { Upload } from "lucide-react";
+import { Upload, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ReportAnalysis } from "@/components/report-analysis";
@@ -95,6 +96,52 @@ export function FileUpload() {
     }
   };
 
+  const handleUseLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`
+            );
+            const data = await response.json();
+            const city = data.address.city || data.address.town || data.address.village;
+            const country = data.address.country;
+            if (city && country) {
+              setLocation(`${city}, ${country}`);
+            } else {
+              toast({
+                title: "Location Error",
+                description: "Could not determine your location.",
+                variant: "destructive",
+              });
+            }
+          } catch (error) {
+            toast({
+              title: "Location Error",
+              description: "Could not determine your location.",
+              variant: "destructive",
+            });
+          }
+        },
+        () => {
+          toast({
+            title: "Location Error",
+            description: "Unable to retrieve your location. Please enable location services.",
+            variant: "destructive",
+          });
+        }
+      );
+    } else {
+      toast({
+        title: "Location Error",
+        description: "Geolocation is not supported by your browser.",
+        variant: "destructive",
+      });
+    }
+  };
+
+
   const analyzeReport = async () => {
     if (!file || !location) return;
 
@@ -161,16 +208,21 @@ export function FileUpload() {
           <option value="Spanish">Spanish</option>
         </select>
         <label className="block text-sm font-medium text-gray-700 mt-4">Enter Location</label>
-        <input
-          type="text"
-          className="w-full p-2 border rounded-md mt-2"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          placeholder="Enter your location"
-          disabled={loading}
-        />
+        <div className="flex items-center gap-2 mt-2">
+          <input
+            type="text"
+            className="w-full p-2 border rounded-md"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Enter your location"
+            disabled={loading}
+          />
+          <Button onClick={handleUseLocation} variant="outline" size="icon" className="h-10 w-10" disabled={loading}>
+            <MapPin className="h-5 w-5" />
+          </Button>
+        </div>
         <div
-          className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors ${loading
+          className={`mt-4 border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors ${loading
             ? "border-gray-300 bg-gray-50"
             : "border-gray-300 hover:border-primary"
             }`}

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -25,6 +26,7 @@ import {
   Dumbbell,
   HeartPulse,
   Waves,
+  MapPin,
 } from "lucide-react";
 
 const commonSymptoms = [
@@ -107,6 +109,35 @@ export default function SymptomChecker() {
     }
   };
 
+  const handleUseLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          try {
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`
+            );
+            const data = await response.json();
+            const city = data.address.city || data.address.town || data.address.village;
+            const country = data.address.country;
+            if (city && country) {
+              setLocation(`${city}, ${country}`);
+            } else {
+              setError("Could not determine location.");
+            }
+          } catch (error) {
+            setError("Could not determine location.");
+          }
+        },
+        () => {
+          setError("Unable to retrieve your location.");
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by your browser.");
+    }
+  };
+
   const analyzeSymptoms = async () => {
     if (symptoms.length === 0) {
       setError("Please add at least one symptom.");
@@ -161,12 +192,18 @@ export default function SymptomChecker() {
           </SelectContent>
         </Select>
 
-        <Input
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          placeholder="Enter your location..."
-          className="h-12 text-lg"
-        />
+        <div className="flex items-center gap-2">
+          <Input
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Enter your location..."
+            className="h-12 text-lg flex-grow"
+          />
+          <Button onClick={handleUseLocation} variant="outline" size="icon" className="h-12 w-12">
+            <MapPin className="h-5 w-5" />
+          </Button>
+        </div>
+
 
         <div className="flex gap-3">
           <Input
@@ -587,3 +624,4 @@ export default function SymptomChecker() {
     </div>
   );
 }
+
