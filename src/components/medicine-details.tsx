@@ -18,6 +18,7 @@ import {
   DollarSign,
   Repeat,
   MapPin,
+  Navigation,
 } from "lucide-react"
 import type { MedicineData } from "@/types/medicine"
 import { motion, AnimatePresence } from "framer-motion"
@@ -613,19 +614,26 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                           data.nearbyPharmacies.pharmacies.map((pharmacy, index) => (
                             <motion.div
                               key={index}
-                              className="p-3 bg-white rounded-lg shadow-sm"
+                              className="p-4 bg-white rounded-lg shadow-sm"
                               whileHover={{ scale: 1.02 }}
                             >
-                              <a
-                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${pharmacy.name}, ${pharmacy.address}`)}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block hover:bg-blue-50 p-2 rounded-lg transition-colors"
-                              >
-                                <h5 className="font-semibold text-blue-600">{pharmacy.name}</h5>
-                                <p className="text-sm text-gray-600">{pharmacy.address}</p>
-                                <p className="text-sm text-gray-600">{pharmacy.contact}</p>
-                              </a>
+                              <div className="flex justify-between items-center">
+                                <div>
+                                  <h5 className="font-semibold text-blue-600">{pharmacy.name}</h5>
+                                  <p className="text-sm text-gray-600">{pharmacy.address}</p>
+                                  <p className="text-sm text-gray-600">{pharmacy.contact}</p>
+                                </div>
+                                <a
+                                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${pharmacy.name}, ${pharmacy.address}`)}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <Button size="sm" variant="outline">
+                                    <Navigation className="mr-2 h-4 w-4" />
+                                    Get Directions
+                                  </Button>
+                                </a>
+                              </div>
                             </motion.div>
                           ))
                         ) : (
@@ -646,5 +654,3 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
     </motion.div>
   )
 }
-
-  
