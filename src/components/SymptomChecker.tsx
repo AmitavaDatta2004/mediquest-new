@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -609,7 +610,7 @@ export default function SymptomChecker() {
           </div>
 
           <div className="pt-6 border-t">
-            {isClient && result && result.diseases && (
+            {isClient && result && result.diseases && result.medications && result.dietPlan && (
               <PDFDownloadLink
                 document={<HealthReport data={result} symptoms={symptoms} />}
                 fileName="health-report.pdf"
