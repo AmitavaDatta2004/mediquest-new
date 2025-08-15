@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -23,7 +24,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import jsPDF from "jspdf"
 
 export function MedicineDetails({ data }: { data: MedicineData }) {
-  const [activeTab] = useState("overview")
+  const [activeTab, setActiveTab] = useState("overview")
   const [key, setKey] = useState(0)
 
   useEffect(() => {
@@ -138,7 +139,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
     addSection("Price Information")
     addText(`Retail Price: ${data.price.averageRetailPrice}`)
     addText(`Unit Price: ${data.price.unitPrice}`)
-    addText(`Rating: ${data.rating.toFixed(1)}/5 (${data.reviewCount.toLocaleString()} reviews)`)
+    addText(`Rating: ${data.rating}/5 (${data.reviewCount.toLocaleString()} reviews)`)
 
     // Alternatives
     if (data.substitutes.length > 0) {
@@ -232,7 +233,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
         </motion.div>
       </motion.div>
 
-      <Tabs defaultValue="overview" className="w-full">
+      <Tabs defaultValue="overview" className="w-full" onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 bg-blue-100/50 p-1 rounded-lg">
           {["overview", "usage", "effects", "alternatives", "pricing", "pharmacies"].map((tab) => (
             <motion.div key={tab} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -247,8 +248,9 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
         </TabsList>
 
         <AnimatePresence mode="wait">
-          {["overview", "usage", "effects", "alternatives", "pricing"].map((tab) => (
-            <TabsContent key={tab} value={tab}>
+          {["overview", "usage", "effects", "alternatives", "pricing", "pharmacies"].map((tab) => (
+          activeTab === tab && (
+            <TabsContent key={tab} value={tab} forceMount>
             <motion.div
               variants={tabVariants}
               initial="hidden"
@@ -287,7 +289,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                               : "Nearby Pharmacies"}
                   </CardTitle>
                   <CardDescription className="text-gray-600">
-                    {activeTab === "overview"
+                    {tab === "overview"
                       ? "Basic information and composition"
                       : tab === "usage"
                         ? "How to take this medicine"
@@ -588,7 +590,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                         </h4>
                         <div className="flex items-center">
                           <Star className="h-6 w-6 text-yellow-400 fill-current" />
-                          <span className="ml-2 text-lg font-semibold">{data.rating.toFixed(1)} / 5</span>
+                          <span className="ml-2 text-lg font-semibold">{data.rating}/5</span>
                           <span className="ml-4 text-gray-600">({data.reviewCount.toLocaleString()} reviews)</span>
                         </div>
                       </motion.div>
@@ -625,11 +627,11 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
               </Card>
             </motion.div>
           </TabsContent>
-            ))}
+          )
+        ))}
         </AnimatePresence>
               
       </Tabs>
     </motion.div>
   )
 }
-

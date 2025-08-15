@@ -19,7 +19,7 @@ export class GeminiService {
       throw new Error("Gemini API key is required");
     }
     this.genAI = new GoogleGenerativeAI(apiKey);
-    this.model = this.genAI.getGenerativeModel({ model: "gemini-2.5-flash-preview-05-20" }) as GenerativeModel;
+    this.model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" }) as GenerativeModel;
   }
 
   async generateContent(prompt: string): Promise<MedicineData> {
