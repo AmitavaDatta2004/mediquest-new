@@ -1,5 +1,4 @@
 
-
 "use client"
 
 import { useState, useEffect } from "react"
@@ -164,8 +163,8 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
     })
 
     // Footer
-    pdf.setFontSize(10)
     const today = new Date().toLocaleDateString()
+    pdf.setFontSize(10)
     pdf.text(`Generated on ${today}`, margin, pdf.internal.pageSize.height - 10)
 
     // Save the PDF
@@ -617,9 +616,16 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                               className="p-3 bg-white rounded-lg shadow-sm"
                               whileHover={{ scale: 1.02 }}
                             >
-                              <h5 className="font-semibold text-blue-600">{pharmacy.name}</h5>
-                              <p className="text-sm text-gray-600">{pharmacy.address}</p>
-                              <p className="text-sm text-gray-600">{pharmacy.contact}</p>
+                              <a
+                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${pharmacy.name}, ${pharmacy.address}`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block hover:bg-blue-50 p-2 rounded-lg transition-colors"
+                              >
+                                <h5 className="font-semibold text-blue-600">{pharmacy.name}</h5>
+                                <p className="text-sm text-gray-600">{pharmacy.address}</p>
+                                <p className="text-sm text-gray-600">{pharmacy.contact}</p>
+                              </a>
                             </motion.div>
                           ))
                         ) : (
@@ -640,3 +646,5 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
     </motion.div>
   )
 }
+
+  
