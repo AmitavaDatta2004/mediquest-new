@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
+        <body className={inter.className} suppressHydrationWarning={true}>
           <Providers>
           <Navbar/>
             {children}
