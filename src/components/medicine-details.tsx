@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -609,17 +610,21 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                         <strong>Location:</strong> {data.nearbyPharmacies.location}
                       </p>
                       <div className="space-y-4">
-                        {data.nearbyPharmacies.pharmacies.map((pharmacy, index) => (
-                          <motion.div
-                            key={index}
-                            className="p-3 bg-white rounded-lg shadow-sm"
-                            whileHover={{ scale: 1.02 }}
-                          >
-                            <h5 className="font-semibold text-blue-600">{pharmacy.name}</h5>
-                            <p className="text-sm text-gray-600">{pharmacy.address}</p>
-                            <p className="text-sm text-gray-600">{pharmacy.contact}</p>
-                          </motion.div>
-                        ))}
+                        {data.nearbyPharmacies.pharmacies.length > 0 ? (
+                          data.nearbyPharmacies.pharmacies.map((pharmacy, index) => (
+                            <motion.div
+                              key={index}
+                              className="p-3 bg-white rounded-lg shadow-sm"
+                              whileHover={{ scale: 1.02 }}
+                            >
+                              <h5 className="font-semibold text-blue-600">{pharmacy.name}</h5>
+                              <p className="text-sm text-gray-600">{pharmacy.address}</p>
+                              <p className="text-sm text-gray-600">{pharmacy.contact}</p>
+                            </motion.div>
+                          ))
+                        ) : (
+                          <p className="text-center text-gray-500">No nearby pharmacies found.</p>
+                        )}
                       </div>
                     </motion.div>
                   )}

@@ -78,27 +78,6 @@ export function MedicineSearch({ selectedLanguage }: MedicineSearchProps) {
               transition={{ duration: 0.5 }}
             >
               <MedicineDetails data={medicineData} />
-
-              {/* Display Nearby Pharmacies */}
-              {medicineData.nearbyPharmacies?.pharmacies?.length > 0 && (
-                <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
-                  <h2 className="text-xl font-semibold mb-2 text-gray-800 flex items-center">
-                    <MapPin className="mr-2 text-red-500" />
-                    Nearby Pharmacies in {medicineData.nearbyPharmacies.location}
-                  </h2>
-                  <ul className="space-y-2">
-                    {medicineData.nearbyPharmacies.pharmacies.map((pharmacy, index) => (
-                      <li key={index} className="p-3 bg-white rounded-lg shadow-sm">
-                        <p className="font-medium text-gray-700">{pharmacy.name}</p>
-                        <p className="text-sm text-gray-600">{pharmacy.address}</p>
-                        {pharmacy.contact && (
-                          <p className="text-sm text-blue-600">{pharmacy.contact}</p>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </motion.div>
           )}
         </Card>
