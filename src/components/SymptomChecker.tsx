@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -91,6 +91,11 @@ export default function SymptomChecker() {
     lifestyle: "",
     sleepPattern: "",
   });
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleAddSymptom = () => {
     if (newSymptom && !symptoms.includes(newSymptom)) {
@@ -604,24 +609,25 @@ export default function SymptomChecker() {
           </div>
 
           <div className="pt-6 border-t">
-            <PDFDownloadLink
-              document={<HealthReport data={result} symptoms={symptoms} />}
-              fileName="health-report.pdf"
-            >
-              {({ loading }) => (
-                <Button 
-                  disabled={loading} 
-                  className="w-full gradient-bg hover:opacity-90 transition-opacity h-14 text-lg"
-                >
-                  <FileDown className="h-5 w-5 mr-2" />
-                  {loading ? "Generating PDF..." : "Download Detailed Report"}
-                </Button>
-              )}
-            </PDFDownloadLink>
+            {isClient && (
+              <PDFDownloadLink
+                document={<HealthReport data={result} symptoms={symptoms} />}
+                fileName="health-report.pdf"
+              >
+                {({ loading }) => (
+                  <Button 
+                    disabled={loading} 
+                    className="w-full gradient-bg hover:opacity-90 transition-opacity h-14 text-lg"
+                  >
+                    <FileDown className="h-5 w-5 mr-2" />
+                    {loading ? "Generating PDF..." : "Download Detailed Report"}
+                  </Button>
+                )}
+              </PDFDownloadLink>
+            )}
           </div>
         </div>
       )}
     </div>
   );
 }
-
