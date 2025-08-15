@@ -119,7 +119,7 @@ export async function POST(request: Request) {
     }
   `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent(prompt);
 
     // Ensure JSON is properly extracted and parsed
