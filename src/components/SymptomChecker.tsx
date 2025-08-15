@@ -9,7 +9,6 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { geminiAPI } from "@/lib/gemini";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import HealthReport from "./HealthReport";
 import {
   AlertCircle,
@@ -18,7 +17,6 @@ import {
   Pill,
   Apple,
   Activity,
-  FileDown,
   Stethoscope,
   ShieldAlert,
   Shield,
@@ -92,11 +90,6 @@ export default function SymptomChecker() {
     lifestyle: "",
     sleepPattern: "",
   });
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const handleAddSymptom = () => {
     if (newSymptom && !symptoms.includes(newSymptom)) {
@@ -607,25 +600,6 @@ export default function SymptomChecker() {
                 </div>
               </TabsContent>
             </Tabs>
-          </div>
-
-          <div className="pt-6 border-t">
-            {isClient && result && result.diseases && result.medications && result.dietPlan && (
-              <PDFDownloadLink
-                document={<HealthReport data={result} symptoms={symptoms} />}
-                fileName="health-report.pdf"
-              >
-                {({ loading }) => (
-                  <Button 
-                    disabled={loading} 
-                    className="w-full gradient-bg hover:opacity-90 transition-opacity h-14 text-lg"
-                  >
-                    <FileDown className="h-5 w-5 mr-2" />
-                    {loading ? "Generating PDF..." : "Download Detailed Report"}
-                  </Button>
-                )}
-              </PDFDownloadLink>
-            )}
           </div>
         </div>
       )}
