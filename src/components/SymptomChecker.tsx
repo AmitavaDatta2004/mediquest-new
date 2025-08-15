@@ -609,7 +609,7 @@ export default function SymptomChecker() {
           </div>
 
           <div className="pt-6 border-t">
-            {isClient && (
+            {isClient && result && result.diseases && (
               <PDFDownloadLink
                 document={<HealthReport data={result} symptoms={symptoms} />}
                 fileName="health-report.pdf"
