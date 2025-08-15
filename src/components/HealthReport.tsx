@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
@@ -75,8 +76,11 @@ interface HealthReportProps {
 }
 
 export default function HealthReport({ data, symptoms }: HealthReportProps) {
+  // Defensive checks with fallback values to prevent rendering errors
   const diseases = data.diseases || [];
   const medications = data.medications || { otc: [], prescribed: [] };
+  const dietPlan = data.dietPlan || { recommended: [], avoid: [] };
+  const workouts = data.workouts || [];
   const generalPrecautions = data.generalPrecautions || [];
   const doctors = data.doctors || [];
 
