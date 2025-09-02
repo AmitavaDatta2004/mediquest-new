@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     "disease predictor",
     "health insights",
   ],
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "MediQuest - AI-Powered Healthcare Solutions",
     description: "AI-powered platform for instant health insights.",
