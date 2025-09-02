@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow API routes to prevent crawlers from making unnecessary API calls
+Disallow: /api/
+
+# Point crawlers to the sitemap
+Sitemap: https://medi-quest.online/sitemap.xml
