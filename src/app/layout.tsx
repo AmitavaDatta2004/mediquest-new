@@ -15,9 +15,29 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MediQuest - AI-Powered Healthcare Solutions",
+  metadataBase: new URL("https://medi-quest.online"),
+  title: {
+    default: "MediQuest - AI-Powered Healthcare Solutions",
+    template: "%s | MediQuest",
+  },
   description:
     "Decode Your Symptoms, Discover the Right Cure, and Stay Informed! Your go-to source for medicine info, accurate diagnoses, and expert health insights.",
+  keywords: [
+    "AI healthcare",
+    "symptom checker",
+    "medical report analyzer",
+    "medicine information",
+    "disease predictor",
+    "health insights",
+  ],
+  openGraph: {
+    title: "MediQuest - AI-Powered Healthcare Solutions",
+    description: "AI-powered platform for instant health insights.",
+    url: "https://medi-quest.online",
+    siteName: "MediQuest",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

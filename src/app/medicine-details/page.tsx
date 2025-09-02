@@ -6,6 +6,10 @@ import { Features } from '@/components/features1';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+// Although this is a client component, we cannot add metadata here directly.
+// The metadata from layout.tsx will be used, but we can't make it more specific.
+// For a fully dynamic title based on search, we would need to use a different approach.
+// For now, the metadata is handled in the root layout.
 
 export default function Home() {
   const [language, setLanguage] = useState('English');
