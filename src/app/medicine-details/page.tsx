@@ -6,10 +6,22 @@ import { Features } from '@/components/features1';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-// Although this is a client component, we cannot add metadata here directly.
-// The metadata from layout.tsx will be used, but we can't make it more specific.
-// For a fully dynamic title based on search, we would need to use a different approach.
-// For now, the metadata is handled in the root layout.
+import type { Metadata } from 'next';
+
+// This metadata is for static rendering. Since this is a client component, 
+// this will not be dynamically updated. For dynamic titles based on search,
+// a different approach involving server components would be needed.
+export const metadata: Metadata = {
+  title: 'Medicine Information Portal',
+  description: 'Search for any medicine to get comprehensive details including composition, usage, side effects, dosage, price, and verified user reviews.',
+  keywords: ['medicine information', 'drug database', 'pill identifier', 'medication search', 'generic drugs'],
+  openGraph: {
+    title: 'Medicine Information Portal | MediQuest',
+    description: 'Get detailed information about any medicine instantly.',
+    url: 'https://medi-quest.online/medicine-details',
+  }
+};
+
 
 export default function Home() {
   const [language, setLanguage] = useState('English');
