@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "online.medi_quest.www.twa",
+        "sha256_cert_fingerprints": ["6B:96:D6:1C:15:57:59:F9:A3:B9:5E:60:B3:64:6C:55:8F:1F:27:A6:E6:7C:78:34:E2:5D:66:6E:21:1A:35:5A"]
+      }
+    }]
