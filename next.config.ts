@@ -1,5 +1,5 @@
 import type {NextConfig} from 'next';
-import {genkitNextPlugin} from '@genkit-ai/next/plugin';
+// import {genkitNextPlugin} from '@genkit-ai/next/plugin';
 import withPWA from 'next-pwa';
 
 const pwaConfig = withPWA({
@@ -10,7 +10,7 @@ const pwaConfig = withPWA({
 });
 
 const nextConfig: NextConfig = {
-  ...genkitNextPlugin(),
+  // ...genkitNextPlugin(),
   typescript: {
     ignoreBuildErrors: true,
   },
