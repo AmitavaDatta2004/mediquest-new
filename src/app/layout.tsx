@@ -39,6 +39,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+  icons: [
+    { rel: 'icon', url: '/favicon.ico' },
+    { rel: 'apple-touch-icon', url: '/logo-mediquest-192.png' },
+  ],
 };
 
 export default function RootLayout({

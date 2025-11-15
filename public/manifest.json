@@ -1,8 +1,12 @@
 
 {
-  "name": "MediQuest - AI-Powered Healthcare Solutions",
+  "name": "MediQuest - AI Healthcare Solutions",
   "short_name": "MediQuest",
-  "description": "MediQuest is an AI-powered healthcare platform that helps users decode symptoms, analyze medical reports, and discover the right cures.",
+  "description": "Decode Your Symptoms, Discover the Right Cure, and Stay Informed! Your go-to source for medicine info, accurate diagnoses, and expert health insights.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
   "icons": [
     {
       "src": "/logo-mediquest-192.png",
@@ -14,10 +18,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "start_url": "/",
-  "scope": "/"
+  ]
 }
