@@ -163,7 +163,7 @@ export default function Hero() {
           >
             Your Health, Our Priority
           </motion.h1>
-          <div className="text-lg md:text-2xl mb-8 md:mb-12 text-purple-950 dark:text-sky-300 min-h-[60px] md:min-h-[84px]">
+          <div className="text-lg md:text-2xl mb-8 md:mb-12 text-muted-foreground min-h-[60px] md:min-h-[84px]">
             <Typewriter
               options={{
                 strings: [
