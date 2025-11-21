@@ -90,7 +90,7 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300",
+                    "px-3 py-2 rounded-md text-sm font-bold transition-colors duration-300",
                     checkActivePath(item.href)
                       ? "bg-primary/10 text-primary"
                       : "text-muted-foreground hover:text-primary"
@@ -172,7 +172,7 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "block px-3 py-3 rounded-md text-base font-medium",
+                      "block px-3 py-3 rounded-md text-base font-bold",
                       checkActivePath(item.href)
                         ? "bg-primary/10 text-primary"
                         : "text-muted-foreground hover:text-primary hover:bg-muted"
