@@ -148,7 +148,7 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
 
-      <div className="container mx-auto px-4 z-10 flex flex-col items-center justify-center">
+      <div className="container mx-auto px-4 z-10 flex flex-col items-center justify-center pt-24 sm:pt-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -156,14 +156,14 @@ export default function Hero() {
           className="text-center"
         >
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 gradient-text mt-28 md:mt-32"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 gradient-text mt-8 md:mt-0"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             Your Health, Our Priority
           </motion.h1>
-          <div className="text-lg md:text-2xl mb-8 md:mb-12 text-muted-foreground min-h-[60px] md:min-h-[84px]">
+          <div className="text-lg md:text-2xl mb-8 md:mb-12 text-foreground min-h-[60px] md:min-h-[84px]">
             <Typewriter
               options={{
                 strings: [
@@ -180,7 +180,7 @@ export default function Hero() {
           </div>
         </motion.div>
         
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 max-w-6xl w-full justify-center mb-12 md:mb-16`}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 max-w-6xl w-full justify-center mb-12 md:mb-16">
           {renderDownloadCard()}
 
           <motion.div
