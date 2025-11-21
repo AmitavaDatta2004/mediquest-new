@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -10,17 +11,25 @@ import { FileSearch, Brain, Pill, Download } from "lucide-react";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [deviceType, setDeviceType] = useState<'desktop' | 'android' | 'other_mobile'>('desktop');
 
   useEffect(() => {
     const userAgent =
       typeof window.navigator === "undefined" ? "" : navigator.userAgent;
-    const mobile = Boolean(
+    const isAndroid = /android/i.test(userAgent);
+    const isMobile = Boolean(
       userAgent.match(
         /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
       )
     );
-    setIsMobile(mobile);
+
+    if (isAndroid) {
+      setDeviceType('android');
+    } else if (isMobile) {
+      setDeviceType('other_mobile');
+    } else {
+      setDeviceType('desktop');
+    }
   }, []);
 
   useEffect(() => {
@@ -77,9 +86,49 @@ export default function Hero() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      container.removeChild(renderer.domElement); // Use stored reference
+      if (container) {
+        container.removeChild(renderer.domElement); // Use stored reference
+      }
     };
   }, []);
+
+  const renderDownloadCard = () => {
+    if (deviceType === 'desktop') return null;
+
+    const isAndroid = deviceType === 'android';
+    const buttonText = isAndroid ? "Download APK" : "Install App";
+    const description = isAndroid
+      ? "Get the full MediQuest experience on your Android device for faster access and more features."
+      : "Install our Progressive Web App on your device for an app-like experience.";
+
+    const buttonAction = () => {
+      if (isAndroid) {
+        window.location.href = "https://github.com/AmitavaDatta2004/mediquest-new/releases/download/v1.0.0/MediQuest.apk";
+      } else {
+        // For non-Android, you can show instructions or try to trigger PWA install if available.
+        // For now, we'll just alert the user.
+        alert("To install, please use the 'Add to Home Screen' feature in your browser's menu.");
+      }
+    };
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="hero-card p-8 md:col-span-3"
+      >
+        <Download className="h-16 w-16 text-primary mx-auto mb-6 animate-float" />
+        <h3 className="text-2xl font-semibold mb-4">Get the App</h3>
+        <p className="text-muted-foreground mb-6">
+          {description}
+        </p>
+        <Button onClick={buttonAction} className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
+          {buttonText}
+        </Button>
+      </motion.div>
+    );
+  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -119,25 +168,7 @@ export default function Hero() {
           </motion.h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
-            {isMobile && (
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="hero-card p-8 md:col-span-3"
-              >
-                <Download className="h-16 w-16 text-primary mx-auto mb-6 animate-float" />
-                <h3 className="text-2xl font-semibold mb-4">Download Our App</h3>
-                <p className="text-muted-foreground mb-6">
-                  Get the full MediQuest experience on your Android device for faster access and more features.
-                </p>
-                <a href="https://github.com/AmitavaDatta2004/mediquest-new/releases/download/v1.0.0/MediQuest.apk">
-                  <Button className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
-                    Download APK
-                  </Button>
-                </a>
-              </motion.div>
-            )}
+            {renderDownloadCard()}
 
             <motion.div
               initial={{ opacity: 0, x: -50 }}
