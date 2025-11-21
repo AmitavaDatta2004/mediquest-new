@@ -348,3 +348,11 @@
 .light .particle-bg {
   @apply bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50;
 }
+
+.dark .report-analyzer-bg {
+  background: hsl(var(--background));
+}
+
+.light .report-analyzer-bg {
+  background: linear-gradient(to bottom, #f3f4f6, #ffffff);
+}

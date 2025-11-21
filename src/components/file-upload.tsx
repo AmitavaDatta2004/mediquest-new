@@ -192,9 +192,9 @@ export function FileUpload() {
   return (
     <div className="space-y-6">
       <Card className="p-6 md:p-8">
-        <label className="block text-sm font-medium text-gray-700">Select Language</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Select Language</label>
         <select
-          className="w-full p-2 border rounded-md mt-2"
+          className="w-full p-2 border rounded-md mt-2 bg-background"
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
           disabled={loading}
@@ -207,11 +207,11 @@ export function FileUpload() {
           <option value="French">French</option>
           <option value="Spanish">Spanish</option>
         </select>
-        <label className="block text-sm font-medium text-gray-700 mt-4">Enter Location</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mt-4">Enter Location</label>
         <div className="flex flex-col sm:flex-row items-center gap-2 mt-2">
           <input
             type="text"
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md bg-background"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Enter your city, country"
@@ -223,8 +223,8 @@ export function FileUpload() {
         </div>
         <div
           className={`mt-4 border-2 border-dashed rounded-lg p-8 md:p-12 text-center cursor-pointer transition-colors ${loading
-            ? "border-gray-300 bg-gray-50"
-            : "border-gray-300 hover:border-primary"
+            ? "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-800"
+            : "border-gray-300 dark:border-gray-600 hover:border-primary"
             }`}
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleFileDrop}
@@ -238,13 +238,13 @@ export function FileUpload() {
             onChange={handleFileSelect}
             disabled={loading}
           />
-          <Upload className="mx-auto h-12 w-12 text-gray-400" />
-          <p className="mt-2 text-sm text-gray-600">
+          <Upload className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             {loading
               ? "Analyzing your report..."
               : "Drag and drop your medical report here, or click to select a file"}
           </p>
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
             Supports JPG, PNG, and PDF up to 10MB
           </p>
         </div>
@@ -252,7 +252,7 @@ export function FileUpload() {
         {loading && (
           <div className="mt-4 space-y-2">
             <Progress value={uploadProgress} className="w-full" />
-            <p className="text-sm text-center text-gray-500">
+            <p className="text-sm text-center text-gray-500 dark:text-gray-400">
               Analyzing your medical report...
             </p>
           </div>
@@ -261,7 +261,7 @@ export function FileUpload() {
         {filePreview && (
           <div className="mt-4">
             <h3 className="text-lg font-semibold mb-2">Uploaded File Preview</h3>
-            <div className="relative w-full h-64 bg-gray-100 rounded-lg overflow-hidden">
+            <div className="relative w-full h-64 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
               <Image
                 src={filePreview}
                 alt="Report preview"
@@ -274,7 +274,7 @@ export function FileUpload() {
 
         {file && !loading && (
           <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-sm text-gray-500 truncate">
+            <div className="text-sm text-gray-500 dark:text-gray-400 truncate">
               Selected file: {file.name}
             </div>
             <Button
