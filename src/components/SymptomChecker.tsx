@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -15,7 +16,6 @@ import {
   Apple,
   Stethoscope,
   Shield,
-  Sparkles,
   Brain,
   Dumbbell,
   HeartPulse,
@@ -169,13 +169,7 @@ export default function SymptomChecker() {
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
       {/* Symptom Input Section */}
-      <div className="space-y-6 bg-gradient-to-br from-primary/5 to-accent/5 p-6 md:p-8 rounded-2xl border border-primary/10">
-        <div className="flex items-center gap-3 mb-6">
-          <Sparkles className="h-8 w-8 text-primary animate-pulse-slow" />
-          <h2 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Symptom Analyzer
-          </h2>
-        </div>
+      <div className="space-y-6">
         <Select onValueChange={setLanguage} value={language}>
           <SelectTrigger className="w-full h-12 text-base">
             <SelectValue placeholder="Select Language" />
@@ -214,7 +208,7 @@ export default function SymptomChecker() {
             onClick={handleAddSymptom} 
             disabled={!newSymptom.trim()} 
             size="lg"
-            className="gradient-bg hover:opacity-90 transition-opacity h-12"
+            className="w-full sm:w-auto h-12 text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
           >
             <Plus className="h-5 w-5 mr-2" />
             Add
@@ -223,7 +217,7 @@ export default function SymptomChecker() {
 
         {/* Common Symptoms */}
         <div className="space-y-3">
-          <h3 className="text-base md:text-lg font-medium text-primary/80">Common Symptoms</h3>
+          <h3 className="text-base md:text-lg font-medium text-muted-foreground">Common Symptoms</h3>
           <div className="flex flex-wrap gap-2">
             {commonSymptoms.map((symptom) => (
               <Button
@@ -231,10 +225,10 @@ export default function SymptomChecker() {
                 variant={symptoms.includes(symptom) ? "default" : "outline"}
                 size="sm"
                 onClick={() => handleCommonSymptomClick(symptom)}
-                className={`symptom-tag ${
+                className={`transition-all duration-200 rounded-full ${
                   symptoms.includes(symptom) 
-                    ? 'gradient-bg hover:opacity-90' 
-                    : 'hover:border-primary/50'
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white' 
+                    : 'bg-background/50 text-foreground'
                 }`}
               >
                 {symptom}
@@ -246,17 +240,17 @@ export default function SymptomChecker() {
         {/* Selected Symptoms */}
         {symptoms.length > 0 && (
           <div className="space-y-3">
-            <h3 className="text-base md:text-lg font-medium text-primary/80">Selected Symptoms</h3>
+            <h3 className="text-base md:text-lg font-medium text-muted-foreground">Selected Symptoms</h3>
             <div className="flex flex-wrap gap-2">
               {symptoms.map((symptom) => (
                 <div
                   key={symptom}
-                  className="flex items-center gap-2 bg-secondary/50 rounded-full px-3 py-1 text-sm font-medium"
+                  className="flex items-center gap-2 bg-blue-100/50 dark:bg-blue-900/30 rounded-full px-3 py-1 text-sm font-medium"
                 >
                   <span>{symptom}</span>
                   <button
                     onClick={() => handleRemoveSymptom(symptom)}
-                    className="text-primary hover:text-destructive"
+                    className="text-blue-500 hover:text-red-500"
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -268,7 +262,7 @@ export default function SymptomChecker() {
 
         {/* Health Questions */}
         <div className="space-y-4">
-          <h3 className="text-base md:text-lg font-medium text-primary/80">Health Questions</h3>
+          <h3 className="text-base md:text-lg font-medium text-muted-foreground">Health Questions</h3>
           <Input
             value={healthQuestions.chronicIllnesses}
             onChange={(e) => setHealthQuestions({ ...healthQuestions, chronicIllnesses: e.target.value })}
@@ -302,7 +296,7 @@ export default function SymptomChecker() {
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 text-destructive p-4 bg-destructive/10 rounded-lg">
+          <div className="flex items-center gap-2 text-red-500 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
             <AlertCircle className="h-5 w-5" />
             <span className="font-medium">{error}</span>
           </div>
@@ -312,7 +306,7 @@ export default function SymptomChecker() {
           onClick={analyzeSymptoms}
           disabled={loading || symptoms.length === 0}
           size="lg"
-          className="w-full gradient-bg hover:opacity-90 transition-opacity h-14 text-lg"
+          className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
         >
           {loading ? (
             <>
@@ -330,259 +324,163 @@ export default function SymptomChecker() {
 
       {/* Results Section */}
       {result && (
-        <div className="space-y-8 results-container">
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-3xl blur-3xl" />
-            <Tabs defaultValue="diseases" className="space-y-6 relative">
-              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 p-1 bg-background/50 backdrop-blur-sm rounded-2xl border border-primary/20 h-auto">
-                <TabsTrigger value="diseases" className="data-[state=active]:gradient-bg">
+        <div className="space-y-8 animate-in fade-in-50 duration-500">
+          <Tabs defaultValue="diseases" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-blue-100/50 p-1 rounded-lg h-auto">
+                <TabsTrigger value="diseases" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
                   <HeartPulse className="h-4 w-4 mr-1 md:mr-2" />
                   Diseases
                 </TabsTrigger>
-                <TabsTrigger value="precautions" className="data-[state=active]:gradient-bg">
+                <TabsTrigger value="precautions" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
                   <Shield className="h-4 w-4 mr-1 md:mr-2" />
                   Precautions
                 </TabsTrigger>
-                <TabsTrigger value="medications" className="data-[state=active]:gradient-bg">
+                <TabsTrigger value="medications" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
                   <Pill className="h-4 w-4 mr-1 md:mr-2" />
                   Medications
                 </TabsTrigger>
-                <TabsTrigger value="diet" className="data-[state=active]:gradient-bg">
+                <TabsTrigger value="diet" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
                   <Apple className="h-4 w-4 mr-1 md:mr-2" />
                   Diet
                 </TabsTrigger>
-                <TabsTrigger value="workouts" className="data-[state=active]:gradient-bg">
+                <TabsTrigger value="workouts" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
                   <Dumbbell className="h-4 w-4 mr-1 md:mr-2" />
                   Workouts
                 </TabsTrigger>
-                <TabsTrigger value="doctors" className="data-[state=active]:gradient-bg">
+                <TabsTrigger value="doctors" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
                   <Stethoscope className="h-4 w-4 mr-1 md:mr-2" />
                   Doctors
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="diseases" className="space-y-6">
+              <TabsContent value="diseases" className="space-y-6 mt-4">
                 {result.diseases?.map((disease: Disease, index: number) => (
-                  <div key={index} className="gradient-border">
-                    <Card className="p-6 hover:shadow-lg transition-shadow bg-background/50 backdrop-blur-sm">
-                      <div className="flex flex-col sm:flex-row items-start justify-between mb-6 gap-4">
-                        <div className="flex items-center gap-4">
-                          <div className="p-3 rounded-full bg-primary/10 text-primary glow">
-                            <HeartPulse className="h-6 w-6" />
-                          </div>
-                          <div>
-                            <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                              {disease.name}
-                            </h3>
-                            <div className="flex items-center gap-2 mt-1">
-                              <Waves className="h-4 w-4 text-primary" />
-                              <span className="text-sm text-muted-foreground">Confidence Level</span>
-                            </div>
-                          </div>
-                        </div>
+                  <Card key={index} className="p-6 bg-white/90 backdrop-blur-sm border-white/20 hover:shadow-xl transition-all duration-300">
+                      <div className="flex flex-col sm:flex-row items-start justify-between mb-4 gap-4">
+                        <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                          {disease.name}
+                        </h3>
                         <div className="relative flex-shrink-0">
-                          <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-20 rounded-full blur-sm" />
-                          <div className="relative px-4 py-2 rounded-full border border-primary/20 bg-background/50 backdrop-blur-sm">
-                            <span className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                              {Math.round(disease.probability * 100)}%
+                          <div className="relative px-4 py-2 rounded-full border border-blue-200 bg-blue-50/50 backdrop-blur-sm">
+                            <span className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                              {Math.round(disease.probability * 100)}% Confidence
                             </span>
                           </div>
                         </div>
                       </div>
-
-                      <p className="text-muted-foreground mb-6 text-base md:text-lg leading-relaxed">
+                      <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
                         {disease.description}
                       </p>
-
-                    </Card>
-                  </div>
-                ))}
-              </TabsContent>
-
-              <TabsContent value="precautions" className="space-y-6">
-                 {result.diseases?.map((disease: Disease, index: number) => (
-                  <div key={index} className="gradient-border">
-                    <Card className="p-6 bg-background/50 backdrop-blur-sm">
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-4">
-                          <div className="p-3 rounded-full bg-primary/10 text-primary glow">
-                            <Shield className="h-6 w-6" />
-                          </div>
-                          <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                            {disease.name} - Precautions
-                          </h3>
-                        </div>
-                        <div className="grid gap-4">
-                          {disease.precautions?.map((precaution: string, i: number) => (
-                            <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                              <div className="p-2 rounded-full bg-primary/10 mt-1 flex-shrink-0">
-                                <Shield className="h-4 w-4 text-primary" />
-                              </div>
-                              <p className="text-muted-foreground text-base md:text-lg">{precaution}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </Card>
-                  </div>
-                ))}
-              </TabsContent>
-
-              <TabsContent value="medications" className="space-y-6">
-                <div className="gradient-border">
-                  <Card className="p-6 bg-background/50 backdrop-blur-sm">
-                    <div className="space-y-8">
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-4">
-                          <div className="p-3 rounded-full bg-primary/10 text-primary glow">
-                            <Pill className="h-6 w-6" />
-                          </div>
-                          <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                            Over-the-Counter
-                          </h3>
-                        </div>
-                        <div className="grid gap-4">
-                          {result.medications?.otc?.map((med: string, i: number) => (
-                            <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                              <div className="p-2 rounded-full bg-primary/10 mt-1 flex-shrink-0">
-                                <Pill className="h-4 w-4 text-primary" />
-                              </div>
-                              <p className="text-muted-foreground text-base md:text-lg">{med}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="space-y-6 pt-6 border-t border-primary/10">
-                        <div className="flex items-center gap-4">
-                          <div className="p-3 rounded-full bg-primary/10 text-primary glow">
-                            <Stethoscope className="h-6 w-6" />
-                          </div>
-                          <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                            Prescription
-                          </h3>
-                        </div>
-                        <div className="grid gap-4">
-                          {result.medications?.prescribed?.map((med: string, i: number) => (
-                            <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                              <div className="p-2 rounded-full bg-primary/10 mt-1 flex-shrink-0">
-                                <Stethoscope className="h-4 w-4 text-primary" />
-                              </div>
-                              <p className="text-muted-foreground text-base md:text-lg">{med}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
                   </Card>
-                </div>
+                ))}
+              </TabsContent>
+
+              <TabsContent value="precautions" className="space-y-6 mt-4">
+                 {result.diseases?.map((disease: Disease, index: number) => (
+                    <Card key={index} className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                        <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
+                          {disease.name} - Precautions
+                        </h3>
+                        <ul className="space-y-2">
+                          {disease.precautions?.map((precaution: string, i: number) => (
+                            <li key={i} className="flex items-start gap-3">
+                              <Shield className="h-5 w-5 text-blue-500 mt-1 flex-shrink-0" />
+                              <p className="text-muted-foreground text-base">{precaution}</p>
+                            </li>
+                          ))}
+                        </ul>
+                    </Card>
+                ))}
+              </TabsContent>
+
+              <TabsContent value="medications" className="space-y-6 mt-4">
+                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                    <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
+                        Over-the-Counter
+                    </h3>
+                    <ul className="space-y-2 mb-6">
+                        {result.medications?.otc?.map((med: string, i: number) => (
+                        <li key={i} className="flex items-start gap-3">
+                            <Pill className="h-5 w-5 text-blue-500 mt-1 flex-shrink-0" />
+                            <p className="text-muted-foreground text-base">{med}</p>
+                        </li>
+                        ))}
+                    </ul>
+
+                    <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4 pt-6 border-t border-blue-100 dark:border-blue-900/50">
+                        Prescription
+                    </h3>
+                    <ul className="space-y-2">
+                        {result.medications?.prescribed?.map((med: string, i: number) => (
+                        <li key={i} className="flex items-start gap-3">
+                            <Pill className="h-5 w-5 text-purple-500 mt-1 flex-shrink-0" />
+                            <p className="text-muted-foreground text-base">{med}</p>
+                        </li>
+                        ))}
+                    </ul>
+                </Card>
               </TabsContent>
               
-               <TabsContent value="diet" className="space-y-6">
-                <div className="gradient-border">
-                  <Card className="p-6 bg-background/50 backdrop-blur-sm">
-                    <div className="space-y-8">
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-4">
-                          <div className="p-3 rounded-full bg-green-400/10 text-green-500 glow">
-                            <Apple className="h-6 w-6" />
-                          </div>
-                          <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-emerald-500">
-                            Recommended Foods
-                          </h3>
-                        </div>
-                        <div className="grid gap-4">
-                          {result.dietPlan?.recommended?.map((food: string, i: number) => (
-                            <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-green-400/5 border border-green-400/10">
-                              <div className="p-2 rounded-full bg-green-400/10 mt-1 flex-shrink-0">
-                                <Apple className="h-4 w-4 text-green-500" />
-                              </div>
-                              <p className="text-muted-foreground text-base md:text-lg">{food}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+               <TabsContent value="diet" className="space-y-6 mt-4">
+                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                    <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-emerald-600 mb-4">
+                        Recommended Foods
+                    </h3>
+                    <ul className="space-y-2 mb-6">
+                        {result.dietPlan?.recommended?.map((food: string, i: number) => (
+                        <li key={i} className="flex items-start gap-3">
+                            <Apple className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                            <p className="text-muted-foreground text-base">{food}</p>
+                        </li>
+                        ))}
+                    </ul>
 
-                      <div className="space-y-6 pt-6 border-t border-destructive/10">
-                        <div className="flex items-center gap-4">
-                          <div className="p-3 rounded-full bg-destructive/10 text-destructive">
-                            <AlertCircle className="h-6 w-6" />
-                          </div>
-                          <h3 className="text-xl md:text-2xl font-bold text-destructive">
-                            Foods to Avoid
-                          </h3>
-                        </div>
-                        <div className="grid gap-4">
-                          {result.dietPlan?.avoid?.map((food: string, i: number) => (
-                            <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-destructive/5 border border-destructive/10">
-                              <div className="p-2 rounded-full bg-destructive/10 mt-1 flex-shrink-0">
-                                <AlertCircle className="h-4 w-4 text-destructive" />
-                              </div>
-                              <p className="text-muted-foreground text-base md:text-lg">{food}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
+                    <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-rose-600 mb-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        Foods to Avoid
+                    </h3>
+                    <ul className="space-y-2">
+                        {result.dietPlan?.avoid?.map((food: string, i: number) => (
+                        <li key={i} className="flex items-start gap-3">
+                            <AlertCircle className="h-5 w-5 text-red-500 mt-1 flex-shrink-0" />
+                            <p className="text-muted-foreground text-base">{food}</p>
+                        </li>
+                        ))}
+                    </ul>
+                </Card>
               </TabsContent>
 
-              <TabsContent value="workouts" className="space-y-6">
-                <div className="gradient-border">
-                  <Card className="p-6 bg-background/50 backdrop-blur-sm">
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-4">
-                        <div className="p-3 rounded-full bg-primary/10 text-primary glow">
-                          <Dumbbell className="h-6 w-6" />
-                        </div>
-                        <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                          Recommended Exercises
-                        </h3>
-                      </div>
-                      <div className="grid gap-4">
+              <TabsContent value="workouts" className="space-y-6 mt-4">
+                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                    <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
+                        Recommended Exercises
+                    </h3>
+                    <ul className="space-y-2">
                         {result.workouts?.map((workout: string, i: number) => (
-                          <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                            <div className="p-2 rounded-full bg-primary/10 mt-1 flex-shrink-0">
-                              <Dumbbell className="h-4 w-4 text-primary" />
-                            </div>
-                            <p className="text-muted-foreground text-base md:text-lg">{workout}</p>
-                          </div>
+                        <li key={i} className="flex items-start gap-3">
+                            <Dumbbell className="h-5 w-5 text-blue-500 mt-1 flex-shrink-0" />
+                            <p className="text-muted-foreground text-base">{workout}</p>
+                        </li>
                         ))}
-                      </div>
-                    </div>
-                  </Card>
-                </div>
+                    </ul>
+                </Card>
               </TabsContent>
 
-              <TabsContent value="doctors" className="space-y-6">
-                <div className="gradient-border">
-                  <Card className="p-6 bg-background/50 backdrop-blur-sm">
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-4">
-                        <div className="p-3 rounded-full bg-primary/10 text-primary glow">
-                          <Stethoscope className="h-6 w-6" />
-                        </div>
-                        <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-                          Recommended Doctors
-                        </h3>
-                      </div>
-                      <div className="grid gap-4">
+              <TabsContent value="doctors" className="space-y-6 mt-4">
+                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                    <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
+                        Recommended Doctors
+                    </h3>
+                    <ul className="space-y-2">
                         {result.doctors?.map((doctor: Doctor, i: number) => (
-                          <div key={i} className="flex items-start gap-4 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                            <div className="p-2 rounded-full bg-primary/10 mt-1 flex-shrink-0">
-                              <Stethoscope className="h-4 w-4 text-primary" />
-                            </div>
-                            <p className="text-muted-foreground text-base md:text-lg">{doctor.name} - {doctor.speciality}</p>
-                          </div>
+                        <li key={i} className="flex items-start gap-3">
+                            <Stethoscope className="h-5 w-5 text-blue-500 mt-1 flex-shrink-0" />
+                            <p className="text-muted-foreground text-base">{doctor.name} - {doctor.speciality}</p>
+                        </li>
                         ))}
-                      </div>
-                    </div>
-                  </Card>
-                </div>
+                    </ul>
+                </Card>
               </TabsContent>
             </Tabs>
-          </div>
         </div>
       )}
     </div>
