@@ -70,10 +70,10 @@ export function Features() {
         transition={{ duration: 0.8 }}
         className="text-center mb-12"
       >
-        <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 mb-4">
           Powerful Features
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <p className="text-muted-foreground max-w-2xl mx-auto">
           Everything you need to make informed decisions about medications
         </p>
       </motion.div>
@@ -88,21 +88,21 @@ export function Features() {
           <motion.div
             key={index}
             variants={itemVariants}
-            className="group relative bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-white/20"
+            className="group relative bg-white/80 dark:bg-card/50 backdrop-blur-sm p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-white/20 dark:border-border"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-800 dark:via-indigo-900 dark:to-purple-900 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300" />
             <div className="relative z-10">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg p-2.5 mb-4">
                 <feature.icon className="w-full h-full text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">
+              <h3 className="text-xl font-semibold mb-2 text-foreground">
                 {feature.title}
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 {feature.description}
               </p>
             </div>
-            <div className="absolute inset-0 border border-blue-100 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 border border-blue-100 dark:border-blue-900/50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </motion.div>
         ))}
       </motion.div>

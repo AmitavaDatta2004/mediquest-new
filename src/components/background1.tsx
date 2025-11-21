@@ -4,15 +4,18 @@ import { useCallback } from "react";
 import Particles from "react-tsparticles";
 import type { Engine } from "tsparticles-engine";
 import { loadSlim } from "tsparticles-slim";
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
 export function Background() {
+  const { theme } = useTheme();
   const particlesInit = useCallback(async (engine: Engine) => {
     await loadSlim(engine);
   }, []);
 
   return (
     <>
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50" />
+      <div className={cn("fixed inset-0 -z-10 particle-bg", theme === 'dark' ? 'dark' : 'light')} />
       <Particles
         className="fixed inset-0 -z-10"
         init={particlesInit}
@@ -26,13 +29,13 @@ export function Background() {
               },
             },
             color: {
-              value: ["#60A5FA", "#818CF8", "#A78BFA"],
+              value: theme === 'dark' ? ["#A78BFA", "#818CF8", "#60A5FA"] : ["#60A5FA", "#818CF8", "#A78BFA"],
             },
             shape: {
               type: "circle",
             },
             opacity: {
-              value: 0.5,
+              value: theme === 'dark' ? 0.3 : 0.5,
               random: true,
               animation: {
                 enable: true,
@@ -54,8 +57,8 @@ export function Background() {
             links: {
               enable: true,
               distance: 150,
-              color: "#A78BFA",
-              opacity: 0.4,
+              color: theme === 'dark' ? "#4C1D95" : "#A78BFA",
+              opacity: theme === 'dark' ? 0.2 : 0.4,
               width: 1,
             },
             move: {
@@ -91,7 +94,7 @@ export function Background() {
               grab: {
                 distance: 140,
                 links: {
-                  opacity: 0.5,
+                  opacity: theme === 'dark' ? 0.3 : 0.5,
                 },
               },
               push: {

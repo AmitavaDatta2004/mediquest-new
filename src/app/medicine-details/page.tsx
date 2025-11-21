@@ -19,7 +19,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="mt-16 md:mt-20 text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 mb-4">
+          <h1 className="mt-16 md:mt-20 text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 mb-4">
             <TypeAnimation
               sequence={[
                 'Medicine Information Portal',
@@ -35,7 +35,7 @@ export default function Home() {
             />
           </h1>
           <motion.p
-            className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -53,9 +53,9 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          <label className="mr-2 text-lg font-medium text-gray-700">Select Language:</label>
+          <label className="mr-2 text-lg font-medium text-foreground">Select Language:</label>
           <select
-            className="px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-indigo-200"
+            className="px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-indigo-200 bg-background text-foreground"
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
           >
