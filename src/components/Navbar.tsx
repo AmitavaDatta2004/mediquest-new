@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,12 +8,15 @@ import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
+import { useActivePath } from "@/hooks/use-active-path";
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const checkActivePath = useActivePath();
 
   useEffect(() => {
     setMounted(true);
@@ -23,160 +27,131 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navItems = [
+    { name: "Features", href: "/#features" },
+    { name: "Report Analyzer", href: "/report-analyzer" },
+    { name: "Disease Predictor", href: "/disease-predictor" },
+    { name: "Medicine Details", href: "/medicine-details" },
+    { name: "Team", href: "/#team" },
+  ];
+
   if (!mounted) {
     return null;
   }
 
-  const navVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   const mobileMenuVariants = {
-    hidden: { opacity: 0, height: 0 },
-    visible: {
-      opacity: 1,
-      height: "auto",
-      transition: {
-        duration: 0.3,
-        staggerChildren: 0.1,
-      },
-    },
-    exit: {
-      opacity: 0,
-      height: 0,
-      transition: { duration: 0.3 },
-    },
+    hidden: { opacity: 0, height: 0, transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+    visible: { opacity: 1, height: "auto", transition: { staggerChildren: 0.07, delayChildren: 0.2 } },
+    exit: { opacity: 0, height: 0, transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+  };
+
+  const mobileLinkVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+    exit: { y: -20, opacity: 0 }
   };
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={cn(
+        "fixed w-full z-50 transition-all duration-300",
         isScrolled || isOpen
-          ? "bg-background/80 backdrop-blur-xl shadow-lg dark:shadow-primary/5"
+          ? "bg-background/80 backdrop-blur-xl shadow-lg dark:shadow-primary/10"
           : "bg-transparent"
-      }`}
+      )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="flex items-center justify-between h-16 md:h-20"
-          initial="hidden"
-          animate="visible"
-          variants={navVariants}
-        >
-          <motion.div className="flex items-center" variants={itemVariants}>
-            <Link href="/" className="flex items-center space-x-2 group">
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 360 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Image
-                  src="/logo-mediquest.png" // Ensure the image is in the public folder
-                  alt="logo"
-                  width={56} // Set the width
-                  height={56} // Set the height
-                  className="h-12 w-12 md:h-14 md:w-14 transition-transform duration-300 hover:rotate-6 hover:scale-105"
-                />
-              </motion.div>
-              <span className="text-xl md:text-2xl font-bold gradient-text">
-                MediQuest
-              </span>
-            </Link>
-          </motion.div>
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <Link href="/" className="flex items-center space-x-2 group">
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 15 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <Image
+                src="/logo-mediquest.png"
+                alt="logo"
+                width={56}
+                height={56}
+                className="h-12 w-12 md:h-14 md:w-14 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105"
+              />
+            </motion.div>
+            <span className="text-xl md:text-2xl font-bold gradient-text">
+              MediQuest
+            </span>
+          </Link>
 
-          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            {[
-              "Features",
-              "Report Analyzer",
-              "Disease Predictor",
-              "Medicine Details",
-              "Team",
-            ].map((item) => (
+          <div className="hidden md:flex items-center space-x-1">
+            {navItems.map((item) => (
               <motion.div
-                key={item}
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                className="relative group"
+                key={item.name}
+                whileHover={{ y: -2 }}
+                className="relative"
               >
                 <Link
-                  href={
-                    item === "Features" || item === "Team"
-                      ? `/#${item.toLowerCase()}`
-                      : `/${item.toLowerCase().replace(/ /g, "-")}`
-                  }
-                  className="nav-link text-base lg:text-lg"
+                  href={item.href}
+                  className={cn(
+                    "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300",
+                    checkActivePath(item.href)
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:text-primary"
+                  )}
                 >
-                  {item}
+                  {item.name}
                 </Link>
-                <motion.div
-                  className="absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
-                  whileHover={{ width: "100%" }}
-                />
               </motion.div>
             ))}
-            <motion.div variants={itemVariants}>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="relative group"
-              >
-                <motion.div
-                  whileHover={{ rotate: 180 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {theme === "dark" ? (
-                    <Sun className="h-5 w-5" />
-                  ) : (
-                    <Moon className="h-5 w-5" />
-                  )}
-                </motion.div>
-              </Button>
-            </motion.div>
           </div>
-
-          <div className="md:hidden flex items-center space-x-2">
-            <motion.div variants={itemVariants}>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="transition-transform duration-300 hover:scale-110"
+          
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="relative group transition-transform duration-300 hover:scale-110"
+            >
+              <motion.div
+                key={theme}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="absolute"
               >
                 {theme === "dark" ? (
                   <Sun className="h-5 w-5" />
                 ) : (
                   <Moon className="h-5 w-5" />
                 )}
-              </Button>
-            </motion.div>
-            <motion.button
-              variants={itemVariants}
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {isOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </motion.button>
+              </motion.div>
+            </Button>
+
+            <div className="md:hidden">
+              <motion.button
+                onClick={() => setIsOpen(!isOpen)}
+                className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Toggle menu"
+              >
+                <AnimatePresence initial={false} mode="wait">
+                  <motion.div
+                    key={isOpen ? "x" : "menu"}
+                    initial={{ rotate: 45, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -45, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {isOpen ? (
+                      <X className="h-6 w-6" />
+                    ) : (
+                      <Menu className="h-6 w-6" />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </motion.button>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -188,30 +163,23 @@ export default function Navbar() {
             exit="exit"
             variants={mobileMenuVariants}
           >
-            <div className="px-4 pt-2 pb-6 space-y-3 bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-xl border-t border-border/50">
-              {[
-                "Features",
-                "Report Analyzer",
-                "Disease Predictor",
-                "Medicine Details",
-                "Team",
-              ].map((item) => (
+            <div className="px-4 pt-2 pb-6 space-y-1 bg-gradient-to-b from-background/95 to-background/90 backdrop-blur-xl border-t border-border/50">
+              {navItems.map((item) => (
                 <motion.div
-                  key={item}
-                  variants={itemVariants}
-                  whileHover={{ x: 10, scale: 1.02 }}
-                  className="relative group"
+                  key={item.name}
+                  variants={mobileLinkVariants}
                 >
                   <Link
-                    href={
-                      item === "Features" || item === "Team"
-                        ? `/#${item.toLowerCase()}`
-                        : `/${item.toLowerCase().replace(/ /g, "-")}`
-                    }
-                    className="block px-3 py-2 text-lg nav-link"
+                    href={item.href}
+                    className={cn(
+                      "block px-3 py-3 rounded-md text-base font-medium",
+                      checkActivePath(item.href)
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:text-primary hover:bg-muted"
+                    )}
                     onClick={() => setIsOpen(false)}
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 </motion.div>
               ))}
