@@ -12,8 +12,14 @@ import { FileSearch, Brain, Pill, Download } from "lucide-react";
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [deviceType, setDeviceType] = useState<'android' | 'other'>('other');
+  const [isRunningAsPWA, setIsRunningAsPWA] = useState(false);
 
   useEffect(() => {
+    // Check if running as a PWA
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsRunningAsPWA(true);
+    }
+    
     const userAgent =
       typeof window.navigator === "undefined" ? "" : navigator.userAgent;
     const isAndroid = /android/i.test(userAgent);
@@ -86,6 +92,10 @@ export default function Hero() {
   }, []);
 
   const renderDownloadCard = () => {
+    if (isRunningAsPWA) {
+      return null;
+    }
+    
     const isAndroid = deviceType === 'android';
     let buttonText, description, buttonAction;
 
@@ -96,22 +106,20 @@ export default function Hero() {
         window.location.href = "/MediQuest.apk";
       };
     } else {
-      buttonText = "Install App";
-      description = "Install our Progressive Web App on your device for an app-like experience, or download the APK for Android.";
-      buttonAction = () => {
-        // For non-Android, you can show instructions or try to trigger PWA install if available.
-        alert("To install, please use the 'Add to Home Screen' feature in your browser's menu.");
-      };
-    }
-
-    // On desktop, we will also offer the APK download.
-    const isMobile = typeof window !== 'undefined' && /Mobi|Android/i.test(navigator.userAgent);
-    if (!isMobile) {
-      buttonText = "Download APK";
-      description = "Download the APK for your Android device.";
-      buttonAction = () => {
-        window.location.href = "/MediQuest.apk";
-      };
+      const isMobile = typeof window !== 'undefined' && /Mobi/i.test(navigator.userAgent) && !/Android/i.test(navigator.userAgent);
+      if(isMobile) {
+        buttonText = "Install App";
+        description = "Install our Progressive Web App on your device for an app-like experience.";
+        buttonAction = () => {
+          alert("To install, please use the 'Add to Home Screen' feature in your browser's menu.");
+        };
+      } else { // Desktop
+        buttonText = "Download APK";
+        description = "Download the APK for your Android device or install the PWA for an app-like experience on desktop.";
+        buttonAction = () => {
+          window.location.href = "/MediQuest.apk";
+        };
+      }
     }
 
 
@@ -171,7 +179,7 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto mb-16">
+          <div className={`grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto mb-16`}>
             {renderDownloadCard()}
 
             <motion.div
