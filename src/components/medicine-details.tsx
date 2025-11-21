@@ -196,7 +196,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
   return (
     <motion.div
       key={key}
-      className="space-y-6 p-4 md:p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg shadow-lg"
+      className="space-y-6 p-4 md:p-6 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900/50 dark:to-indigo-900/50 rounded-lg shadow-lg"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -217,7 +217,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
             {data.name}
           </motion.h2>
           <motion.p
-            className="text-gray-600 text-base md:text-lg"
+            className="text-muted-foreground text-base md:text-lg"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -229,7 +229,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
           <Button
             onClick={handleDownload}
             variant="outline"
-            className="hover:bg-blue-100 transition-colors duration-300 shadow-sm w-full md:w-auto"
+            className="hover:bg-blue-100 dark:hover:bg-primary/10 transition-colors duration-300 shadow-sm w-full md:w-auto"
           >
             <Download className="mr-2 h-5 w-5" />
             Download PDF
@@ -238,12 +238,12 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
       </motion.div>
 
       <Tabs defaultValue="overview" className="w-full" onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-blue-100/50 p-1 rounded-lg h-auto">
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-blue-100/50 dark:bg-card/60 p-1 rounded-lg h-auto">
           {TABS.map((tab) => (
             <motion.div key={tab} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <TabsTrigger
                 value={tab}
-                className="capitalize data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 rounded-md w-full"
+                className="capitalize data-[state=active]:bg-white dark:data-[state=active]:bg-primary/20 data-[state=active]:text-blue-600 dark:data-[state=active]:text-primary-foreground transition-all duration-300 rounded-md w-full"
               >
                 {tab}
               </TabsTrigger>
@@ -262,9 +262,9 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
               exit="hidden"
               transition={{ duration: 0.5 }}
             >
-              <Card className="bg-white/90 backdrop-blur-sm border-white/20 hover:shadow-xl transition-all duration-300">
+              <Card className="bg-white/90 dark:bg-card/50 backdrop-blur-sm border-white/20 dark:border-border hover:shadow-xl transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="text-xl md:text-2xl text-blue-700 flex items-center gap-2">
+                  <CardTitle className="text-xl md:text-2xl text-blue-700 dark:text-primary flex items-center gap-2">
                     <motion.span variants={iconVariants} initial="hidden" animate="visible">
                         {tab === "overview" ? (
                         <Pill className="h-6 w-6" />
@@ -292,7 +292,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                               ? "Pricing & Storage"
                               : "Nearby Pharmacies"}
                   </CardTitle>
-                  <CardDescription className="text-gray-600">
+                  <CardDescription className="text-muted-foreground">
                     {tab === "overview"
                       ? "Basic information and composition"
                       : tab === "usage"
@@ -306,18 +306,18 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                               : "Pharmacies with availability information"}
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-6 text-foreground">
                     {tab === "overview" && (
                     <>
                       <motion.div
-                        className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-blue-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-blue-700 dark:text-blue-300 flex items-center gap-2">
                             <FlaskRound className="h-5 w-5" />
                           Composition
                         </h4>
-                        <div className="space-y-2">
+                        <div className="space-y-2 text-muted-foreground">
                           <p>
                             <strong>Form:</strong> {data.composition.formulationType}
                           </p>
@@ -340,14 +340,14 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                         </div>
                       </motion.div>
                       <motion.div
-                        className="bg-purple-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-purple-50 dark:bg-purple-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-purple-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-purple-700 dark:text-purple-300 flex items-center gap-2">
                           <Pill className="h-5 w-5" />
                           Function
                         </h4>
-                        <div className="space-y-2">
+                        <div className="space-y-2 text-muted-foreground">
                           <p>
                             <strong>Primary Action:</strong> {data.function.primaryAction}
                           </p>
@@ -360,17 +360,17 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                         </div>
                       </motion.div>
                       <motion.div
-                        className="bg-green-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-green-50 dark:bg-green-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-green-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-green-700 dark:text-green-300 flex items-center gap-2">
                           <Building className="h-5 w-5" />
                           Manufacturer
                         </h4>
-                        <p>
+                        <p className="text-muted-foreground">
                           <strong>Company:</strong> {data.manufacturer.name}
                         </p>
-                        <p>
+                        <p className="text-muted-foreground">
                           <strong>Country:</strong> {data.manufacturer.country}
                         </p>
                       </motion.div>
@@ -379,14 +379,14 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                     {tab === "usage" && (
                     <>
                       <motion.div
-                        className="bg-yellow-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-yellow-50 dark:bg-yellow-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-yellow-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-yellow-700 dark:text-yellow-300 flex items-center gap-2">
                           <Clock className="h-5 w-5" />
                           Dosage Information
                         </h4>
-                        <div className="space-y-2">
+                        <div className="space-y-2 text-muted-foreground">
                           <div>
                             <strong>Standard Dosage:</strong>
                             <ul className="list-disc pl-5 mt-1">
@@ -416,14 +416,14 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                         </div>
                       </motion.div>
                       <motion.div
-                        className="bg-indigo-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-indigo-50 dark:bg-indigo-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-indigo-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-indigo-700 dark:text-indigo-300 flex items-center gap-2">
                           <AlertTriangle className="h-5 w-5" />
                           Instructions
                         </h4>
-                        <div className="space-y-2">
+                        <div className="space-y-2 text-muted-foreground">
                           <p>{data.instructions.generalGuidelines}</p>
                           <div>
                             <strong>Precautions:</strong>
@@ -444,28 +444,28 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                     {tab === "effects" && (
                     <>
                       <motion.div
-                        className="bg-green-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-green-50 dark:bg-green-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-green-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-green-700 dark:text-green-300 flex items-center gap-2">
                           <Pill className="h-5 w-5" />
                           Disease Treatment
                         </h4>
-                        <ul className="list-disc pl-5">
+                        <ul className="list-disc pl-5 text-muted-foreground">
                           {data.diseases.map((disease, i) => (
                             <li key={i}>{disease}</li>
                           ))}
                         </ul>
                       </motion.div>
                       <motion.div
-                        className="bg-red-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-red-50 dark:bg-red-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-red-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-red-700 dark:text-red-300 flex items-center gap-2">
                           <AlertTriangle className="h-5 w-5" />
                           Side Effects
                         </h4>
-                        <div className="space-y-3">
+                        <div className="space-y-3 text-muted-foreground">
                           <div>
                             <strong>Common Side Effects:</strong>
                             <ul className="list-disc pl-5 mt-1">
@@ -484,7 +484,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                           </div>
                           <div>
                             <strong>Serious Side Effects:</strong>
-                            <ul className="list-disc pl-5 mt-1 text-red-600">
+                            <ul className="list-disc pl-5 mt-1 text-red-600 dark:text-red-400">
                               {data.sideEffects.serious.map((effect, i) => (
                                 <li key={i}>{effect}</li>
                               ))}
@@ -493,14 +493,14 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                         </div>
                       </motion.div>
                       <motion.div
-                        className="bg-orange-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-orange-50 dark:bg-orange-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-orange-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-orange-700 dark:text-orange-300 flex items-center gap-2">
                           <Sandwich className="h-5 w-5" />
                           Interactions
                         </h4>
-                        <div className="space-y-3">
+                        <div className="space-y-3 text-muted-foreground">
                           <div>
                             <strong>Drug Interactions:</strong>
                             <ul className="list-disc pl-5 mt-1">
@@ -535,81 +535,81 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                         data.substitutes.map((substitute, index) => (
                           <motion.div
                             key={index}
-                            className="p-4 border rounded-lg bg-blue-50 hover:shadow-md transition-all duration-300"
+                            className="p-4 border dark:border-border rounded-lg bg-blue-50 dark:bg-blue-900/10 hover:shadow-md transition-all duration-300"
                             whileHover={{ scale: 1.05 }}
                           >
-                            <h4 className="font-semibold text-blue-700">{substitute.name}</h4>
-                            <p className="text-sm text-gray-600">{substitute.genericName}</p>
+                            <h4 className="font-semibold text-blue-700 dark:text-blue-300">{substitute.name}</h4>
+                            <p className="text-sm text-muted-foreground">{substitute.genericName}</p>
                             <p className="text-sm mt-1 font-medium">{substitute.price}</p>
-                            <p className="text-sm mt-2 text-gray-700">{substitute.comparisonNotes}</p>
+                            <p className="text-sm mt-2 text-muted-foreground">{substitute.comparisonNotes}</p>
                           </motion.div>
                         ))
                       ) : (
-                        <p className="col-span-full text-center text-gray-500">No alternative medicines available</p>
+                        <p className="col-span-full text-center text-muted-foreground">No alternative medicines available</p>
                       )}
                     </div>
                   )}
                     {tab === "pricing" && (
                     <>
                       <motion.div
-                        className="bg-green-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-green-50 dark:bg-green-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-green-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-green-700 dark:text-green-300 flex items-center gap-2">
                           <DollarSign className="h-5 w-5" />
                           Price Information
                         </h4>
-                        <p>
+                        <p className="text-muted-foreground">
                           <strong>Retail Price:</strong> {data.price.averageRetailPrice}
                         </p>
-                        <p>
+                        <p className="text-muted-foreground">
                           <strong>Unit Price:</strong> {data.price.unitPrice}
                         </p>
                       </motion.div>
                       <motion.div
-                        className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-blue-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-blue-700 dark:text-blue-300 flex items-center gap-2">
                           <Thermometer className="h-5 w-5" />
                           Storage Requirements
                         </h4>
-                        <p>
+                        <p className="text-muted-foreground">
                           <strong>Temperature:</strong> {data.storage.temperature}
                         </p>
-                        <p>
+                        <p className="text-muted-foreground">
                           <strong>Conditions:</strong> {data.storage.specialConditions}
                         </p>
-                        <p>
+                        <p className="text-muted-foreground">
                           <strong>Expiry:</strong> {data.storage.expiryGuidelines}
                         </p>
                       </motion.div>
                       <motion.div
-                        className="bg-yellow-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        className="bg-yellow-50 dark:bg-yellow-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
-                        <h4 className="font-semibold text-lg mb-3 text-yellow-700 flex items-center gap-2">
+                        <h4 className="font-semibold text-lg mb-3 text-yellow-700 dark:text-yellow-300 flex items-center gap-2">
                           <Star className="h-5 w-5" />
                           User Ratings
                         </h4>
                         <div className="flex items-center">
                           <Star className="h-6 w-6 text-yellow-400 fill-current" />
                           <span className="ml-2 text-lg font-semibold">{data.rating}/5</span>
-                          <span className="ml-4 text-gray-600">({data.reviewCount.toLocaleString()} reviews)</span>
+                          <span className="ml-4 text-muted-foreground">({data.reviewCount.toLocaleString()} reviews)</span>
                         </div>
                       </motion.div>
                     </>
                   )}
                   {tab === "pharmacies" && (
                     <motion.div
-                      className="bg-blue-50 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                      className="bg-blue-50 dark:bg-blue-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                       whileHover={{ scale: 1.02 }}
                     >
-                      <h4 className="font-semibold text-lg mb-3 text-blue-700 flex items-center gap-2">
+                      <h4 className="font-semibold text-lg mb-3 text-blue-700 dark:text-blue-300 flex items-center gap-2">
                         <MapPin className="h-5 w-5" />
                         Nearby Pharmacies
                       </h4>
-                      <p className="mb-4">
+                      <p className="mb-4 text-muted-foreground">
                         <strong>Location:</strong> {data.nearbyPharmacies.location}
                       </p>
                       <div className="space-y-4">
@@ -617,14 +617,14 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                           data.nearbyPharmacies.pharmacies.map((pharmacy, index) => (
                             <motion.div
                               key={index}
-                              className="p-4 bg-white rounded-lg shadow-sm"
+                              className="p-4 bg-white dark:bg-card/70 rounded-lg shadow-sm"
                               whileHover={{ scale: 1.02 }}
                             >
                               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                                 <div>
-                                  <h5 className="font-semibold text-blue-600">{pharmacy.name}</h5>
-                                  <p className="text-sm text-gray-600">{pharmacy.address}</p>
-                                  <p className="text-sm text-gray-600">{pharmacy.contact}</p>
+                                  <h5 className="font-semibold text-blue-600 dark:text-blue-400">{pharmacy.name}</h5>
+                                  <p className="text-sm text-muted-foreground">{pharmacy.address}</p>
+                                  <p className="text-sm text-muted-foreground">{pharmacy.contact}</p>
                                 </div>
                                 <a
                                   href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${pharmacy.name}, ${pharmacy.address}`)}`}
@@ -641,7 +641,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                             </motion.div>
                           ))
                         ) : (
-                          <p className="text-center text-gray-500">No nearby pharmacies found.</p>
+                          <p className="text-center text-muted-foreground">No nearby pharmacies found.</p>
                         )}
                       </div>
                     </motion.div>
