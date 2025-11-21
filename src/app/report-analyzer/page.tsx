@@ -52,11 +52,11 @@ export default function Home() {
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
-        <div className="mt-20 text-center mb-16">
+        <div className="mt-16 md:mt-20 text-center mb-16">
           <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Medical Report Analyzer
           </h1>
-          <p className="mt-3 text-xl text-gray-500 max-w-2xl mx-auto">
+          <p className="mt-3 text-lg md:text-xl text-gray-500 max-w-2xl mx-auto">
             Upload your medical report and get an instant AI-powered analysis
             that helps you understand your health status better.
           </p>

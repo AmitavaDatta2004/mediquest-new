@@ -138,6 +138,17 @@
   }
 }
 
+@keyframes scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
@@ -148,6 +159,73 @@
 
 .animate-gradient {
   animation: gradient 3s linear infinite;
+}
+
+.animate-scale {
+  animation: scale 5s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 5s ease-in-out infinite;
+}
+
+.text-gradient-animate {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  background-size: 200% auto;
+  animation: gradient 3s ease-in-out infinite;
+}
+
+.gradient-border {
+  @apply relative p-[2px] rounded-lg;
+  background: linear-gradient(135deg, hsl(var(--primary)/0.5), hsl(var(--accent)/0.5));
+  transition: all 0.3s ease-in-out;
+}
+
+.gradient-border:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px -5px hsl(var(--primary)/0.2);
+}
+
+.hover-lift {
+  @apply transition-transform duration-300;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+.card-hover-effect {
+  @apply bg-background/80 backdrop-blur-sm rounded-md;
+}
+
+.glass-card {
+  @apply bg-background/50 backdrop-blur-md border border-white/10;
+}
+
+.symptom-tag {
+  @apply transition-all duration-200;
+}
+
+.gradient-bg {
+  @apply bg-gradient-to-r from-primary to-accent text-primary-foreground;
+}
+
+.results-container {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { color: transparent; }
+  50% { color: hsl(var(--primary)); }
 }
 
 .gradient-text {

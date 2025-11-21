@@ -17,7 +17,7 @@ export default function Navbar() {
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -63,15 +63,15 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        isScrolled
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled || isOpen
           ? "bg-background/80 backdrop-blur-xl shadow-lg dark:shadow-primary/5"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="flex items-center justify-between h-20"
+          className="flex items-center justify-between h-16 md:h-20"
           initial="hidden"
           animate="visible"
           variants={navVariants}
@@ -85,18 +85,18 @@ export default function Navbar() {
                 <Image
                   src="/logo-mediquest.png" // Ensure the image is in the public folder
                   alt="logo"
-                  width={64} // Set the width
-                  height={64} // Set the height
-                  className="h-16 transition-transform duration-300 hover:rotate-6 hover:scale-105"
+                  width={56} // Set the width
+                  height={56} // Set the height
+                  className="h-12 w-12 md:h-14 md:w-14 transition-transform duration-300 hover:rotate-6 hover:scale-105"
                 />
               </motion.div>
-              <span className="text-2xl font-bold gradient-text">
+              <span className="text-xl md:text-2xl font-bold gradient-text">
                 MediQuest
               </span>
             </Link>
           </motion.div>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {[
               "Features",
               "Report Analyzer",
@@ -113,10 +113,10 @@ export default function Navbar() {
                 <Link
                   href={
                     item === "Features" || item === "Team"
-                      ? `#${item.toLowerCase()}`
-                      : `/${item.toLowerCase().replace(" ", "-")}`
+                      ? `/#${item.toLowerCase()}`
+                      : `/${item.toLowerCase().replace(/ /g, "-")}`
                   }
-                  className="nav-link text-lg"
+                  className="nav-link text-base lg:text-lg"
                 >
                   {item}
                 </Link>
@@ -147,7 +147,7 @@ export default function Navbar() {
             </motion.div>
           </div>
 
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="md:hidden flex items-center space-x-2">
             <motion.div variants={itemVariants}>
               <Button
                 variant="ghost"
@@ -205,8 +205,8 @@ export default function Navbar() {
                   <Link
                     href={
                       item === "Features" || item === "Team"
-                        ? `#${item.toLowerCase()}`
-                        : `/${item.toLowerCase().replace(" ", "-")}`
+                        ? `/#${item.toLowerCase()}`
+                        : `/${item.toLowerCase().replace(/ /g, "-")}`
                     }
                     className="block px-3 py-2 text-lg nav-link"
                     onClick={() => setIsOpen(false)}

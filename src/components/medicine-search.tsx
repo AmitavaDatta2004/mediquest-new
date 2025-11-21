@@ -62,22 +62,22 @@ export function MedicineSearch({ selectedLanguage }: MedicineSearchProps) {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <Card className="p-6 backdrop-blur-lg bg-white/80 shadow-xl hover:shadow-2xl transition-all duration-300 border-t border-l border-white/20">
-          <form onSubmit={handleSearch} className="flex flex-col gap-4 mb-8">
+        <Card className="p-4 md:p-6 backdrop-blur-lg bg-white/80 shadow-xl hover:shadow-2xl transition-all duration-300 border-t border-l border-white/20">
+          <form onSubmit={handleSearch} className="space-y-4 mb-8">
             <Input
               placeholder={`Enter medicine name (${selectedLanguage})...`}
               value={medicineName}
               onChange={(e) => setMedicineName(e.target.value)}
-              className="flex-1 bg-white/50 backdrop-blur-sm border-white/20 focus:border-blue-400 transition-all duration-300"
+              className="h-12 text-base md:text-lg bg-white/50 backdrop-blur-sm border-white/20 focus:border-blue-400 transition-all duration-300"
             />
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
               <Input
                 placeholder="Enter your location..."
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="flex-grow bg-white/50 backdrop-blur-sm border-white/20 focus:border-blue-400 transition-all duration-300"
+                className="h-12 text-base md:text-lg flex-grow bg-white/50 backdrop-blur-sm border-white/20 focus:border-blue-400 transition-all duration-300"
               />
-               <Button onClick={handleUseLocation} variant="outline" size="icon">
+               <Button onClick={handleUseLocation} variant="outline" size="icon" className="h-12 w-12 flex-shrink-0">
                   <MapPin className="h-5 w-5" />
                 </Button>
             </div>
@@ -86,7 +86,7 @@ export function MedicineSearch({ selectedLanguage }: MedicineSearchProps) {
             <Button
               type="submit"
               disabled={isLoading}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              className="w-full h-12 text-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
             >
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

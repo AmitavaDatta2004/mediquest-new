@@ -41,18 +41,18 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="mt-20 container mx-auto px-4 py-16 text-center relative">
+      <section className="mt-16 md:mt-20 container mx-auto px-4 py-12 md:py-16 text-center relative">
         <div className="flex justify-center mb-6">
           <div className="relative">
-            <Heart className="h-16 w-16 text-primary animate-pulse" />
-            <Sparkles className="h-8 w-8 text-accent absolute -top-2 -right-2 animate-float" />
+            <Heart className="h-14 w-14 md:h-16 md:w-16 text-primary animate-pulse" />
+            <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-accent absolute -top-2 -right-2 animate-float" />
           </div>
         </div>
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gradient-animate relative inline-block">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gradient-animate relative inline-block">
           AI-Powered Disease Prediction
           <span className="cursor-blink">|</span>
         </h1>
-        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-scale">
+        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-scale">
           Get instant insights about your health based on your symptoms using advanced AI analysis.
         </p>
       </section>
@@ -60,7 +60,7 @@ export default function Home() {
       {/* Main Content */}
       <section className="container mx-auto px-4 py-8 relative">
         <div className="grid grid-cols-1 gap-8">
-          <div className="glass-card rounded-lg shadow-lg p-6 hover-lift">
+          <div className="glass-card rounded-lg shadow-lg p-4 sm:p-6 hover-lift">
             <Suspense fallback={<div>Loading symptom checker...</div>}>
               <SymptomChecker />
             </Suspense>

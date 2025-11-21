@@ -191,7 +191,7 @@ export function FileUpload() {
 
   return (
     <div className="space-y-6">
-      <Card className="p-8">
+      <Card className="p-6 md:p-8">
         <label className="block text-sm font-medium text-gray-700">Select Language</label>
         <select
           className="w-full p-2 border rounded-md mt-2"
@@ -208,21 +208,21 @@ export function FileUpload() {
           <option value="Spanish">Spanish</option>
         </select>
         <label className="block text-sm font-medium text-gray-700 mt-4">Enter Location</label>
-        <div className="flex items-center gap-2 mt-2">
+        <div className="flex flex-col sm:flex-row items-center gap-2 mt-2">
           <input
             type="text"
             className="w-full p-2 border rounded-md"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            placeholder="Enter your location"
+            placeholder="Enter your city, country"
             disabled={loading}
           />
-          <Button onClick={handleUseLocation} variant="outline" size="icon" className="h-10 w-10" disabled={loading}>
+          <Button onClick={handleUseLocation} variant="outline" size="icon" className="h-10 w-10 flex-shrink-0" disabled={loading}>
             <MapPin className="h-5 w-5" />
           </Button>
         </div>
         <div
-          className={`mt-4 border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors ${loading
+          className={`mt-4 border-2 border-dashed rounded-lg p-8 md:p-12 text-center cursor-pointer transition-colors ${loading
             ? "border-gray-300 bg-gray-50"
             : "border-gray-300 hover:border-primary"
             }`}
@@ -273,13 +273,14 @@ export function FileUpload() {
         )}
 
         {file && !loading && (
-          <div className="mt-4 flex items-center justify-between">
-            <div className="text-sm text-gray-500">
+          <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-sm text-gray-500 truncate">
               Selected file: {file.name}
             </div>
             <Button
               onClick={analyzeReport}
               disabled={loading || !location}
+              className="w-full sm:w-auto"
             >
               {loading ? "Analyzing..." : "Analyze Report"}
             </Button>

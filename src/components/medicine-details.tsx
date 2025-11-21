@@ -189,11 +189,14 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
     hidden: { scale: 0 },
     visible: { scale: 1 },
   }
+  
+  const TABS = ["overview", "usage", "effects", "alternatives", "pricing", "pharmacies"];
+
 
   return (
     <motion.div
       key={key}
-      className="space-y-6 p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg shadow-lg"
+      className="space-y-6 p-4 md:p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg shadow-lg"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -206,7 +209,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
       >
         <div>
           <motion.h2
-            className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
+            className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -214,7 +217,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
             {data.name}
           </motion.h2>
           <motion.p
-            className="text-gray-600 text-lg"
+            className="text-gray-600 text-base md:text-lg"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -226,7 +229,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
           <Button
             onClick={handleDownload}
             variant="outline"
-            className="hover:bg-blue-100 transition-colors duration-300 shadow-sm"
+            className="hover:bg-blue-100 transition-colors duration-300 shadow-sm w-full md:w-auto"
           >
             <Download className="mr-2 h-5 w-5" />
             Download PDF
@@ -235,12 +238,12 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
       </motion.div>
 
       <Tabs defaultValue="overview" className="w-full" onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 bg-blue-100/50 p-1 rounded-lg">
-          {["overview", "usage", "effects", "alternatives", "pricing", "pharmacies"].map((tab) => (
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-blue-100/50 p-1 rounded-lg h-auto">
+          {TABS.map((tab) => (
             <motion.div key={tab} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <TabsTrigger
                 value={tab}
-                className="capitalize data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 rounded-md"
+                className="capitalize data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300 rounded-md w-full"
               >
                 {tab}
               </TabsTrigger>
@@ -249,7 +252,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
         </TabsList>
 
         <AnimatePresence mode="wait">
-          {["overview", "usage", "effects", "alternatives", "pricing", "pharmacies"].map((tab) => (
+          {TABS.map((tab) => (
           activeTab === tab && (
             <TabsContent key={tab} value={tab} forceMount>
             <motion.div
@@ -261,7 +264,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
             >
               <Card className="bg-white/90 backdrop-blur-sm border-white/20 hover:shadow-xl transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-blue-700 flex items-center gap-2">
+                  <CardTitle className="text-xl md:text-2xl text-blue-700 flex items-center gap-2">
                     <motion.span variants={iconVariants} initial="hidden" animate="visible">
                         {tab === "overview" ? (
                         <Pill className="h-6 w-6" />
@@ -542,7 +545,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                           </motion.div>
                         ))
                       ) : (
-                        <p className="col-span-2 text-center text-gray-500">No alternative medicines available</p>
+                        <p className="col-span-full text-center text-gray-500">No alternative medicines available</p>
                       )}
                     </div>
                   )}
@@ -617,7 +620,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                               className="p-4 bg-white rounded-lg shadow-sm"
                               whileHover={{ scale: 1.02 }}
                             >
-                              <div className="flex justify-between items-center">
+                              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                                 <div>
                                   <h5 className="font-semibold text-blue-600">{pharmacy.name}</h5>
                                   <p className="text-sm text-gray-600">{pharmacy.address}</p>
@@ -627,6 +630,7 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                                   href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${pharmacy.name}, ${pharmacy.address}`)}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
+                                  className="mt-2 sm:mt-0"
                                 >
                                   <Button size="sm" variant="outline">
                                     <Navigation className="mr-2 h-4 w-4" />

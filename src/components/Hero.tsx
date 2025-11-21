@@ -16,7 +16,7 @@ export default function Hero() {
 
   useEffect(() => {
     // Check if running as a PWA
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    if (typeof window !== 'undefined' && window.matchMedia('(display-mode: standalone)').matches) {
       setIsRunningAsPWA(true);
     }
     
@@ -85,8 +85,8 @@ export default function Hero() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (container) {
-        container.removeChild(renderer.domElement); // Use stored reference
+      if (container && container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement); 
       }
     };
   }, []);
@@ -128,11 +128,11 @@ export default function Hero() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="hero-card p-8 md:col-span-1"
+        className="hero-card p-6 md:p-8"
       >
-        <Download className="h-16 w-16 text-primary mx-auto mb-6 animate-float" />
-        <h3 className="text-2xl font-semibold mb-4">Get the App</h3>
-        <p className="text-muted-foreground mb-6">
+        <Download className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
+        <h3 className="text-xl md:text-2xl font-semibold mb-4">Get the App</h3>
+        <p className="text-muted-foreground mb-6 text-sm md:text-base">
           {description}
         </p>
         <Button onClick={buttonAction} className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
@@ -148,7 +148,7 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
 
-      <div className="mt-36 mb-10 container mx-auto px-4 z-10">
+      <div className="mt-28 md:mt-36 mb-10 container mx-auto px-4 z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -156,41 +156,41 @@ export default function Hero() {
           className="text-center"
         >
           <motion.h1
-            className="text-4xl md:text-7xl font-bold mb-6 gradient-text"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 gradient-text"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             Your Health, Our Priority
-            <span className="text-xl md:text-3xl mb-12 text-purple-950 dark:text-sky-300">
-              <Typewriter
-                options={{
-                  strings: [
-                    "Analyze Medical Reports with AI",
-                    "Predict Diseases from Symptoms",
-                    "Get Detailed Medicine Information",
-                  ],
-                  autoStart: true,
-                  loop: true,
-                  deleteSpeed: 30,
-                  delay: 80,
-                }}
-              />
-            </span>
           </motion.h1>
+          <div className="text-lg md:text-2xl mb-8 md:mb-12 text-purple-950 dark:text-sky-300 min-h-[60px] md:min-h-[84px]">
+            <Typewriter
+              options={{
+                strings: [
+                  "Analyze Medical Reports with AI",
+                  "Predict Diseases from Symptoms",
+                  "Get Detailed Medicine Information",
+                ],
+                autoStart: true,
+                loop: true,
+                deleteSpeed: 30,
+                delay: 80,
+              }}
+            />
+          </div>
 
-          <div className={`grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto mb-16`}>
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto mb-12 md:mb-16`}>
             {renderDownloadCard()}
 
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="hero-card p-8"
+              className="hero-card p-6 md:p-8"
             >
-              <FileSearch className="h-16 w-16 text-primary mx-auto mb-6 animate-float" />
-              <h3 className="text-2xl font-semibold mb-4">Report Analyzer</h3>
-              <p className="text-muted-foreground mb-6">
+              <FileSearch className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
+              <h3 className="text-xl md:text-2xl font-semibold mb-4">Report Analyzer</h3>
+              <p className="text-muted-foreground mb-6 text-sm md:text-base">
                 Upload your medical reports and get instant AI-powered analysis
                 in simple terms.
               </p>
@@ -205,11 +205,11 @@ export default function Hero() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="hero-card p-8"
+              className="hero-card p-6 md:p-8"
             >
-              <Brain className="h-16 w-16 text-primary mx-auto mb-6 animate-float" />
-              <h3 className="text-2xl font-semibold mb-4">Disease Predictor</h3>
-              <p className="text-muted-foreground mb-6">
+              <Brain className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
+              <h3 className="text-xl md:text-2xl font-semibold mb-4">Disease Predictor</h3>
+              <p className="text-muted-foreground mb-6 text-sm md:text-base">
                 Input your symptoms and get AI-based predictions for potential
                 health conditions.
               </p>
@@ -224,11 +224,11 @@ export default function Hero() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="hero-card p-8"
+              className="hero-card p-6 md:p-8"
             >
-              <Pill className="h-16 w-16 text-primary mx-auto mb-6 animate-float" />
-              <h3 className="text-2xl font-semibold mb-4">Medicine Details</h3>
-              <p className="text-muted-foreground mb-6">
+              <Pill className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
+              <h3 className="text-xl md:text-2xl font-semibold mb-4">Medicine Details</h3>
+              <p className="text-muted-foreground mb-6 text-sm md:text-base">
                 Get comprehensive information about medications, side effects,
                 and alternatives.
               </p>
@@ -241,18 +241,18 @@ export default function Hero() {
           </div>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-6 justify-center"
+            className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
           >
-            <Button className="rounded-full text-lg px-12 py-6 bg-primary/90 hover:bg-primary animate-glow" size="lg">
+            <Button className="rounded-full text-base md:text-lg px-8 md:px-12 py-5 md:py-6 bg-primary/90 hover:bg-primary animate-glow" size="lg">
               Get Started
             </Button>
             <Link href="#features">
               <Button
                 variant="outline"
-                className="rounded-full text-lg px-12 py-6 border-2 hover:bg-primary/10 transition-colors duration-300"
+                className="rounded-full text-base md:text-lg px-8 md:px-12 py-5 md:py-6 border-2 hover:bg-primary/10 transition-colors duration-300"
                 size="lg"
               >
                 Explore Features
