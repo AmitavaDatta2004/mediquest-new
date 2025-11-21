@@ -148,7 +148,7 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
 
-      <div className="container mx-auto px-4 z-10 flex flex-col items-center justify-center pt-24 sm:pt-0">
+      <div className="container mx-auto px-4 z-10 flex flex-col items-center justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ export default function Hero() {
           className="text-center"
         >
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 gradient-text"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 gradient-text mt-24 sm:mt-0"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
