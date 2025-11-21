@@ -148,7 +148,7 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
 
-      <div className="mt-28 md:mt-36 mb-10 container mx-auto px-4 z-10">
+      <div className="container mx-auto px-4 z-10 flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -178,87 +178,87 @@ export default function Hero() {
               }}
             />
           </div>
-
-          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto mb-12 md:mb-16`}>
-            {renderDownloadCard()}
-
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="hero-card p-6 md:p-8"
-            >
-              <FileSearch className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
-              <h3 className="text-xl md:text-2xl font-semibold mb-4">Report Analyzer</h3>
-              <p className="text-muted-foreground mb-6 text-sm md:text-base">
-                Upload your medical reports and get instant AI-powered analysis
-                in simple terms.
-              </p>
-              <Link href="/report-analyzer">
-                <Button className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
-                  Try Now
-                </Button>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="hero-card p-6 md:p-8"
-            >
-              <Brain className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
-              <h3 className="text-xl md:text-2xl font-semibold mb-4">Disease Predictor</h3>
-              <p className="text-muted-foreground mb-6 text-sm md:text-base">
-                Input your symptoms and get AI-based predictions for potential
-                health conditions.
-              </p>
-              <Link href="/disease-predictor">
-                <Button className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
-                  Check Now
-                </Button>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="hero-card p-6 md:p-8"
-            >
-              <Pill className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
-              <h3 className="text-xl md:text-2xl font-semibold mb-4">Medicine Details</h3>
-              <p className="text-muted-foreground mb-6 text-sm md:text-base">
-                Get comprehensive information about medications, side effects,
-                and alternatives.
-              </p>
-              <Link href="/medicine-details">
-                <Button className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
-                  Learn More
-                </Button>
-              </Link>
-            </motion.div>
-          </div>
+        </motion.div>
+        
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-6xl w-full justify-center mb-12 md:mb-16`}>
+          {renderDownloadCard()}
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="hero-card p-6 md:p-8"
           >
-            <Button className="rounded-full text-base md:text-lg px-8 md:px-12 py-5 md:py-6 bg-primary/90 hover:bg-primary animate-glow" size="lg">
-              Get Started
-            </Button>
-            <Link href="#features">
-              <Button
-                variant="outline"
-                className="rounded-full text-base md:text-lg px-8 md:px-12 py-5 md:py-6 border-2 hover:bg-primary/10 transition-colors duration-300"
-                size="lg"
-              >
-                Explore Features
+            <FileSearch className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
+            <h3 className="text-xl md:text-2xl font-semibold mb-4">Report Analyzer</h3>
+            <p className="text-muted-foreground mb-6 text-sm md:text-base">
+              Upload your medical reports and get instant AI-powered analysis
+              in simple terms.
+            </p>
+            <Link href="/report-analyzer">
+              <Button className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
+                Try Now
               </Button>
             </Link>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="hero-card p-6 md:p-8"
+          >
+            <Brain className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
+            <h3 className="text-xl md:text-2xl font-semibold mb-4">Disease Predictor</h3>
+            <p className="text-muted-foreground mb-6 text-sm md:text-base">
+              Input your symptoms and get AI-based predictions for potential
+              health conditions.
+            </p>
+            <Link href="/disease-predictor">
+              <Button className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
+                Check Now
+              </Button>
+            </Link>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="hero-card p-6 md:p-8"
+          >
+            <Pill className="h-12 md:h-16 w-12 md:w-16 text-primary mx-auto mb-6 animate-float" />
+            <h3 className="text-xl md:text-2xl font-semibold mb-4">Medicine Details</h3>
+            <p className="text-muted-foreground mb-6 text-sm md:text-base">
+              Get comprehensive information about medications, side effects,
+              and alternatives.
+            </p>
+            <Link href="/medicine-details">
+              <Button className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
+                Learn More
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+        >
+          <Button className="rounded-full text-base md:text-lg px-8 md:px-12 py-5 md:py-6 bg-primary/90 hover:bg-primary animate-glow" size="lg">
+            Get Started
+          </Button>
+          <Link href="#features">
+            <Button
+              variant="outline"
+              className="rounded-full text-base md:text-lg px-8 md:px-12 py-5 md:py-6 border-2 hover:bg-primary/10 transition-colors duration-300"
+              size="lg"
+            >
+              Explore Features
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </div>
