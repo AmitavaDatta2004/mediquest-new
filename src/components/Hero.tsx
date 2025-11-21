@@ -156,7 +156,7 @@ export default function Hero() {
           className="text-center"
         >
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 gradient-text mt-24 sm:mt-0"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 gradient-text mt-28 md:mt-32"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
