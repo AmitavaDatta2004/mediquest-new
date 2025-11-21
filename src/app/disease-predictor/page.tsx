@@ -7,6 +7,7 @@ import { Activity, Heart, Shield } from 'lucide-react';
 import { Background } from '@/components/background1';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
+import { Card } from '@/components/ui/card';
 
 export default function Home() {
   return (
