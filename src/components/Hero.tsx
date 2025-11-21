@@ -1,15 +1,27 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Typewriter from "typewriter-effect";
 import * as THREE from "three";
 import Link from "next/link";
-import { FileSearch, Brain, Pill } from "lucide-react";
+import { FileSearch, Brain, Pill, Download } from "lucide-react";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const userAgent =
+      typeof window.navigator === "undefined" ? "" : navigator.userAgent;
+    const mobile = Boolean(
+      userAgent.match(
+        /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+      )
+    );
+    setIsMobile(mobile);
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -107,6 +119,26 @@ export default function Hero() {
           </motion.h1>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
+            {isMobile && (
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="hero-card p-8 md:col-span-3"
+              >
+                <Download className="h-16 w-16 text-primary mx-auto mb-6 animate-float" />
+                <h3 className="text-2xl font-semibold mb-4">Download Our App</h3>
+                <p className="text-muted-foreground mb-6">
+                  Get the full MediQuest experience on your Android device for faster access and more features.
+                </p>
+                <a href="https://github.com/AmitavaDatta2004/mediquest-new/releases/download/v1.0.0/MediQuest.apk">
+                  <Button className="w-full rounded-full bg-primary/90 hover:bg-primary animate-glow">
+                    Download APK
+                  </Button>
+                </a>
+              </motion.div>
+            )}
+
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
