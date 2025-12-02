@@ -580,15 +580,24 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
                         <p className="text-muted-foreground">
                           <strong>Conditions:</strong> {data.storage.specialConditions}
                         </p>
-                        <p className="text-muted-foreground">
-                          <strong>Expiry:</strong> {data.storage.expiryGuidelines}
-                        </p>
                       </motion.div>
                       <motion.div
                         className="bg-yellow-50 dark:bg-yellow-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                       >
                         <h4 className="font-semibold text-lg mb-3 text-yellow-700 dark:text-yellow-300 flex items-center gap-2">
+                          <AlertTriangle className="h-5 w-5" />
+                          Expiry Guidelines
+                        </h4>
+                        <p className="text-muted-foreground whitespace-pre-wrap">
+                          {data.storage.expiryGuidelines}
+                        </p>
+                      </motion.div>
+                      <motion.div
+                        className="bg-purple-50 dark:bg-purple-900/10 p-4 rounded-lg hover:shadow-md transition-all duration-300"
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <h4 className="font-semibold text-lg mb-3 text-purple-700 dark:text-purple-300 flex items-center gap-2">
                           <Star className="h-5 w-5" />
                           User Ratings
                         </h4>
@@ -658,3 +667,5 @@ export function MedicineDetails({ data }: { data: MedicineData }) {
     </motion.div>
   )
 }
+
+    
