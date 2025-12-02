@@ -1,3 +1,4 @@
+
 export const getMedicineDetailsPrompt = (medicineName: string, language: string, location: string) => `
 Provide detailed, factual medical reference information about "${medicineName}" in JSON format. Follow these guidelines strictly:
 
@@ -75,7 +76,7 @@ Return the data in the following exact structure, ensuring the content is provid
   "storage": {
     "temperature": "Specific temperature range",
     "specialConditions": "Light/moisture considerations",
-    "expiryGuidelines": "Typical shelf life and expiry indicators"
+    "expiryGuidelines": "Typical shelf life and expiry indicators. Specifically address whether the medicine is safe to take if it has been expired for one month. Also provide guidelines for what to do if it has been expired for longer, or if the packaging has been opened."
   },
   "price": {
     "averageRetailPrice": "Average retail price range in INR",
