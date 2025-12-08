@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, MapPin, X } from "lucide-react";
+import { Upload, MapPin, X, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ReportAnalysis } from "@/components/report-analysis";
@@ -53,7 +53,7 @@ export function FileUpload() {
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
-    if (selectedFile) {
+    if (selectedFiles.length > 0) {
       handleFileSelection(selectedFiles);
     }
   };
