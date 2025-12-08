@@ -1,83 +1,132 @@
 
-# MediQuest
+# MediQuest: Your AI-Powered Health Companion
 
-MediQuest is an AI-powered healthcare platform that helps users decode symptoms, analyze medical reports, discover the right cures, and stay informed about their health. The platform leverages advanced machine learning and generative AI to provide instant, actionable health insights in a user-friendly way.
+**MediQuest** is an intelligent healthcare platform designed to empower users with a deeper understanding of their health. By leveraging cutting-edge generative AI, MediQuest translates complex medical data into clear, actionable insights. From decoding symptoms and analyzing lab reports to providing detailed medicine information, our goal is to make healthcare more accessible, transparent, and personalized.
 
 ---
 
 ## Table of Contents
-- [Features](#features)
+- [Key Features](#key-features)
 - [How It Works](#how-it-works)
+- [Live Demo & Screenshots](#live-demo--screenshots)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
-- [Setup & Installation](#setup--installation)
+- [Getting Started](#getting-started)
 - [Environment Variables](#environment-variables)
-- [Usage](#usage)
 - [Security & Privacy](#security--privacy)
 - [Contributing](#contributing)
-- [FAQ](#faq)
+- [Meet the Team](#meet-the-team)
 - [License](#license)
-- [Team](#team)
 
 ---
 
-## Features
+## Key Features
 
-- **AI-Powered Report Analysis:** Upload your medical reports and receive a detailed, easy-to-understand breakdown with critical findings, health issues, and specialist recommendations.
-- **Symptom Checker & Disease Prediction:** Enter your symptoms to get a ranked list of possible diseases, risk factors, and recommended precautions.
-- **Medicine Information Portal:** Search for medicines and access comprehensive details including composition, usage, side effects, dosage, storage, price, substitutes, and user reviews.
-- **Personalized Health Plans:** Get custom healthcare recommendations, diet plans, and exercise suggestions based on your profile and reports.
-- **Real-Time Health Alerts:** Receive timely notifications for medications and appointments.
-- **Doctor Recommendations:** Find top doctors and specialists in your area for your specific health needs.
-- **PDF Export:** Download your analysis and medicine details as well-formatted PDF reports.
-- **Secure & Private:** All data is processed securely and never stored, ensuring complete privacy and confidentiality.
+MediQuest is packed with powerful features designed to put you in control of your health information.
+
+### 1. AI Medical Report Analyzer
+Instantly transform complex medical reports into easy-to-understand analysis.
+- **Multi-Format Upload:** Supports PDF documents and image files (JPG, PNG).
+- **Comprehensive Analysis:** The AI provides a detailed breakdown covering:
+  - **Overall Summary:** A simple overview of the report's main findings.
+  - **Critical Findings:** Highlights results that require immediate attention.
+  - **Key Test Results:** Explains each test, comparing values to normal ranges.
+  - **Health Issues:** Identifies potential health problems, rated by severity.
+  - **Specialist Recommendations:** Suggests relevant specialists and provides a list of **5 local doctors** based on your location.
+  - **Medication Guidance:** Lists prescribed or recommended medications (both prescription and OTC).
+- **Multi-Language Support:** Get your analysis in multiple languages, including English, Hindi, Bengali, and more.
+- **Secure & Private:** Your reports are processed in-memory and are **never stored** on our servers.
+- **PDF Export:** Download the complete analysis as a well-formatted PDF to share with your healthcare provider.
+
+### 2. AI Symptom Checker & Disease Predictor
+Enter your symptoms and get AI-driven insights into potential health conditions.
+- **Symptom & Health Profile Input:** Enter your symptoms, location, and answer a few simple health questions for a more personalized analysis.
+- **Ranked Disease Predictions:** Receive a list of the top 5 possible diseases, each with a probability score.
+- **In-Depth Information:** For each potential disease, you get:
+  - Detailed descriptions, common causes, and risk factors.
+  - Recommended precautions and lifestyle adjustments.
+- **Actionable Health Plans:**
+  - **Medications:** Suggestions for both OTC and prescription treatments.
+  - **Diet Plan:** A list of recommended foods to eat and to avoid.
+  - **Exercise Routines:** Suggested physical activities to aid recovery.
+- **Local Doctor Recommendations:** Finds 5 relevant doctors in your specified location.
+
+### 3. Medicine Information Portal
+A comprehensive database for all your medication-related questions.
+- **Powerful Search:** Look up any medicine by name.
+- **Detailed Information:** Access a wealth of information, including:
+  - **Composition:** Full list of active and inactive ingredients.
+  - **Mechanism of Action:** How the medicine works.
+  - **Usage & Dosage:** Detailed instructions for adults, children, and the elderly.
+  - **Side Effects:** A breakdown of common, uncommon, and serious side effects.
+  - **Interactions:** Critical warnings about interactions with other drugs or food.
+  - **Substitutes:** Find affordable and effective alternatives.
+  - **Pricing:** Average retail price in your currency.
+  - **Storage & Expiry:** Crucial safety information, including clear guidelines on what to do if a medicine is expired.
+- **Find Nearby Pharmacies:** Get a list of 5 pharmacies in your area, complete with addresses, contact information, and directions via Google Maps.
+- **Multi-Language Support:** All information is available in your selected language.
 
 ---
 
 ## How It Works
 
-1. **Medical Report & Prescription Analyzer:**
-   - Upload your medical report (PDF/image), handwritten prescription, or medical image (X-ray, scan, etc).
-   - The AI analyzes the document and provides a summary, highlights critical findings, decodes handwritten prescriptions, and suggests next steps.
+1. **Medical Report Analyzer:**
+   - Navigate to the "Report Analyzer" page.
+   - Select your preferred language and enter your location.
+   - Upload your medical report (PDF/image).
+   - The AI analyzes the document and presents a structured, easy-to-read report.
+
 2. **Symptom Checker:**
-   - Enter your symptoms and answer a few health questions.
-   - Get a list of probable diseases, risk factors, and recommended actions.
+   - Go to the "Disease Predictor" page.
+   - Choose a language, enter your location, add your symptoms, and answer a few health questions.
+   - The AI provides a detailed report with potential conditions, diet plans, and doctor recommendations.
+
 3. **Medicine Info:**
-   - Search for any medicine to get detailed information, including alternatives and safety alerts.
+   - Visit the "Medicine Details" page.
+   - Select a language, enter a medicine name, and provide your location.
+   - Instantly receive comprehensive details, including substitutes and nearby pharmacies.
+
+---
+
+## Live Demo & Screenshots
+
+*(Placeholder for live demo link and screenshots of the application in action)*
 
 ---
 
 ## Tech Stack
 
-- **Frontend:** Next.js, React, Tailwind CSS, Framer Motion
-- **Backend:** Node.js, Next.js API routes
-- **AI/ML:** Google Gemini API, custom ML models
-- **Authentication:** Clerk
-- **PDF Generation:** jsPDF, @react-pdf/renderer
-- **UI Components:** Radix UI, Lucide Icons
-- **Styling:** Tailwind CSS
+- **Frontend:** Next.js, React, TypeScript, Tailwind CSS, ShadCN/UI
+- **Animations:** Framer Motion, React Type Animation
+- **AI/ML:** Google Gemini API via Genkit
+- **State Management:** React Hooks (useState, useContext)
+- **PDF Generation:** jsPDF, jspdf-autotable
+- **UI Components:** Radix UI, Lucide Icons, Vaul
+- **PWA Support:** `next-pwa` for an installable, app-like experience.
 
 ---
 
 ## Project Structure
-
 ```
 mediquest/
-├── app/                # Next.js app directory (pages, API routes)
-├── components/         # Reusable React components
-├── hooks/              # Custom React hooks
-├── lib/                # Utility libraries and helpers
-├── public/             # Static assets (images, icons)
-├── types/              # TypeScript types
-├── .clerk/             # Clerk authentication config
-├── next.config.ts      # Next.js configuration
-├── tailwind.config.ts  # Tailwind CSS configuration
-└── ...
+├── src/
+│   ├── app/                # Next.js App Router: Pages and API routes
+│   │   ├── api/            # Backend API logic for AI features
+│   │   ├── (pages)/        # Page directories (e.g., /report-analyzer)
+│   │   ├── layout.tsx      # Root layout
+│   │   └── page.tsx        # Homepage
+│   ├── components/         # Reusable React components (UI, features)
+│   ├── hooks/              # Custom React hooks (e.g., use-medicine-info)
+│   ├── lib/                # Utility functions, API helpers, PDF generator
+│   └── types/              # TypeScript type definitions
+├── public/                 # Static assets (images, icons, manifest.json)
+├── next.config.ts          # Next.js configuration
+├── tailwind.config.ts      # Tailwind CSS configuration
+└── package.json
 ```
-
 ---
 
-## Setup & Installation
+## Getting Started
 
 ### Prerequisites
 - Node.js (v18+ recommended)
@@ -85,82 +134,54 @@ mediquest/
 
 ### Installation Steps
 1. **Clone the repository:**
-   ```powershell
-   git clone https://github.com/AmitavaDatta2004/mediquest.git
+   ```bash
+   git clone https://github.com/your-username/mediquest.git
    cd mediquest
    ```
 2. **Install dependencies:**
-   ```powershell
+   ```bash
    npm install
    # or
    yarn install
    ```
 3. **Set up environment variables:**
-   - Copy `.env.local.example` to `.env.local` and fill in the required values (see [Environment Variables](#environment-variables)).
+   - Copy `.env.local.example` to `.env.local` and fill in the required API keys (see [Environment Variables](#environment-variables)).
 4. **Run the development server:**
-   ```powershell
+   ```bash
    npm run dev
-   # or
-   yarn dev
    ```
-5. **Open [http://localhost:3000](http://localhost:3000) to view the app.**
+5. **Open [http://localhost:9002](http://localhost:9002) to view the app.**
 
 ---
 
 ## Environment Variables
 
-You will need to set the following environment variables in your `.env.local` file:
-- `CLERK_PUBLISHABLE_KEY` – Clerk authentication key
-- `CLERK_SECRET_KEY` – Clerk secret key
-- `GEMINI_API_KEY` – Google Gemini API key for AI features
+You will need to create a `.env.local` file in the root of your project and add the following:
 
----
-
-## Usage
-
-- **Medical Report Analyzer:** Go to the "Report Analyzer" section, upload your report, and get instant analysis.
-- **Symptom Checker:** Use the "Disease Predictor" to enter symptoms and receive AI-powered predictions.
-- **Medicine Info:** Search for medicines in the "Medicine Details" section for comprehensive information.
-- **Download Reports:** Export your results as PDF for sharing with healthcare providers.
+```
+# Google Gemini API Key for all AI-powered features
+GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+NEXT_PUBLIC_GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+```
 
 ---
 
 ## Security & Privacy
 
-- All user data is processed in-memory and never stored on the server.
-- No personal health information is retained after analysis.
-- All API requests are rate-limited to prevent abuse.
-- Authentication is handled securely via Clerk.
+We take your privacy seriously.
+- **No Data Storage:** All uploaded medical reports and personal health data are processed in-memory and **are never stored** on our servers.
+- **Secure Processing:** API requests are handled securely.
+- **Rate Limiting:** Backend endpoints are rate-limited to prevent abuse and ensure service stability.
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Please open issues or submit pull requests for improvements, bug fixes, or new features.
+Contributions are welcome! If you have suggestions for improvements, bug fixes, or new features, please feel free to open an issue or submit a pull request.
 
 ---
 
-## FAQ
-
-**Q: Is my health data safe?**
-A: Yes. All data is processed securely and never stored.
-
-**Q: Can I use MediQuest for emergency diagnosis?**
-A: No. MediQuest is for informational purposes only and does not replace professional medical advice.
-
-**Q: What types of medical reports are supported?**
-A: Most standard PDF and image-based reports are supported.
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## Team
-
+## Meet the Team
 
 - **Amitava Datta** – Backend Developer ([GitHub](https://github.com/AmitavaDatta2004))
 - **Pranay De** – ML Engineer ([GitHub](https://github.com/PRANAY130))
@@ -170,5 +191,10 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-Made with ❤️ by the MediQuest Team.
+## License
 
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+Made with ❤️ by the MediQuest Team.
