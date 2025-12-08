@@ -2,13 +2,13 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, MapPin, X, FileText } from "lucide-react";
+import { Upload, MapPin, X, FileText, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ReportAnalysis } from "@/components/report-analysis";
 import { useToast } from "@/hooks/use-toast";
-import { Progress } from "@/components/ui/progress";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface AnalysisResponse {
   error?: string;
@@ -35,12 +35,32 @@ interface AnalysisResponse {
   };
 }
 
+const AnalysisLoader = () => (
+    <div className="mt-6 flex flex-col items-center justify-center gap-4">
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          rotate: [0, 10, -10, 0],
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <Loader2 className="h-12 w-12 text-primary animate-spin" />
+      </motion.div>
+      <p className="text-lg font-medium text-muted-foreground animate-pulse">
+        Analyzing your medical report... this may take a moment.
+      </p>
+    </div>
+  );
+
 export function FileUpload() {
   const [files, setFiles] = useState<File[]>([]);
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const [language, setLanguage] = useState("english");
   const [location, setLocation] = useState("");
   const { toast } = useToast();
@@ -102,7 +122,6 @@ export function FileUpload() {
     setFiles(newFiles);
     setFilePreviews(newPreviews);
     setAnalysis(null);
-    setUploadProgress(0);
   };
   
   const removeFile = (index: number) => {
@@ -160,7 +179,6 @@ export function FileUpload() {
     if (files.length === 0 || !location) return;
 
     setLoading(true);
-    setUploadProgress(0);
 
     try {
       const formData = new FormData();
@@ -201,7 +219,6 @@ export function FileUpload() {
       setAnalysis(null);
     } finally {
       setLoading(false);
-      setUploadProgress(0);
     }
   };
 
@@ -266,14 +283,7 @@ export function FileUpload() {
           </p>
         </div>
 
-        {loading && (
-          <div className="mt-4 space-y-2">
-            <Progress value={uploadProgress} className="w-full" />
-            <p className="text-sm text-center text-gray-500 dark:text-gray-400">
-              Analyzing your medical report...
-            </p>
-          </div>
-        )}
+        {loading && <AnalysisLoader />}
 
         {filePreviews.length > 0 && (
           <div className="mt-4">
