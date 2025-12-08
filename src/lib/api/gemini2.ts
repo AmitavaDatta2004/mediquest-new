@@ -1,4 +1,5 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+
+import { GoogleGenerativeAI, Part } from '@google/generative-ai';
 import { GeminiAPIError } from './errors2';
 
 if (!process.env.GEMINI_API_KEY) {
@@ -110,15 +111,12 @@ function cleanJsonResponse(text: string): string {
 }
 
 // Main Function: Analyze Image
-export async function analyzeImage(base64Image: string, mimeType: string, prompt: string) {
+export async function analyzeImage(fileData: Part[], prompt: string) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const generateResponse = async () => {
-      const result = await model.generateContent([
-        prompt,
-        { inlineData: { mimeType, data: base64Image } }
-      ]);
+      const result = await model.generateContent([prompt, ...fileData]);
       return result.response;
     };
 

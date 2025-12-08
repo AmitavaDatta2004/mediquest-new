@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, MapPin } from "lucide-react";
+import { Upload, MapPin, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ReportAnalysis } from "@/components/report-analysis";
@@ -36,8 +36,8 @@ interface AnalysisResponse {
 }
 
 export function FileUpload() {
-  const [file, setFile] = useState<File | null>(null);
-  const [filePreview, setFilePreview] = useState<string | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
+  const [filePreviews, setFilePreviews] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -47,54 +47,68 @@ export function FileUpload() {
 
   const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const droppedFile = e.dataTransfer.files[0];
-    handleFileSelection(droppedFile);
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    handleFileSelection(droppedFiles);
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
+    const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
     if (selectedFile) {
-      handleFileSelection(selectedFile);
+      handleFileSelection(selectedFiles);
     }
   };
 
-  const handleFileSelection = (selectedFile: File) => {
+  const handleFileSelection = (selectedFiles: File[]) => {
     const validTypes = ['image/jpeg', 'image/png', 'application/pdf'];
     const maxSize = 10 * 1024 * 1024; // 10MB
+    
+    const newFiles = [...files];
+    const newPreviews = [...filePreviews];
 
-    if (!validTypes.includes(selectedFile.type)) {
-      toast({
-        title: "Invalid file type",
-        description: "Please upload a JPG, PNG, or PDF file.",
-        variant: "destructive",
-      });
-      return;
+    for (const file of selectedFiles) {
+        if (!validTypes.includes(file.type)) {
+          toast({
+            title: "Invalid file type",
+            description: `Skipping ${file.name}. Please upload a JPG, PNG, or PDF file.`,
+            variant: "destructive",
+          });
+          continue;
+        }
+
+        if (file.size > maxSize) {
+          toast({
+            title: "File too large",
+            description: `Skipping ${file.name}. Maximum file size is 10MB.`,
+            variant: "destructive",
+          });
+          continue;
+        }
+        
+        if (!files.some(f => f.name === file.name)) {
+            newFiles.push(file);
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    newPreviews.push(reader.result as string);
+                    setFilePreviews([...newPreviews]);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                 newPreviews.push("pdf"); // Placeholder for PDF icon/preview
+            }
+        }
     }
-
-    if (selectedFile.size > maxSize) {
-      toast({
-        title: "File too large",
-        description: "Maximum file size is 10MB.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setFile(selectedFile);
+    
+    setFiles(newFiles);
+    setFilePreviews(newPreviews);
     setAnalysis(null);
     setUploadProgress(0);
-
-    // Create file preview
-    if (selectedFile.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFilePreview(reader.result as string);
-      };
-      reader.readAsDataURL(selectedFile);
-    } else {
-      setFilePreview(null); // Clear preview for non-image files
-    }
   };
+  
+  const removeFile = (index: number) => {
+    setFiles(files.filter((_, i) => i !== index));
+    setFilePreviews(filePreviews.filter((_, i) => i !== index));
+  }
 
   const handleUseLocation = () => {
     if (navigator.geolocation) {
@@ -143,14 +157,16 @@ export function FileUpload() {
 
 
   const analyzeReport = async () => {
-    if (!file || !location) return;
+    if (files.length === 0 || !location) return;
 
     setLoading(true);
     setUploadProgress(0);
 
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      files.forEach(file => {
+        formData.append("files", file);
+      })
       formData.append("language", language);
       formData.append("location", location);
 
@@ -237,12 +253,13 @@ export function FileUpload() {
             accept=".jpg,.jpeg,.png,.pdf"
             onChange={handleFileSelect}
             disabled={loading}
+            multiple
           />
           <Upload className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             {loading
               ? "Analyzing your report..."
-              : "Drag and drop your medical report here, or click to select a file"}
+              : "Drag and drop your medical reports here, or click to select files"}
           </p>
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
             Supports JPG, PNG, and PDF up to 10MB
@@ -258,31 +275,49 @@ export function FileUpload() {
           </div>
         )}
 
-        {filePreview && (
+        {filePreviews.length > 0 && (
           <div className="mt-4">
-            <h3 className="text-lg font-semibold mb-2">Uploaded File Preview</h3>
-            <div className="relative w-full h-64 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
-              <Image
-                src={filePreview}
-                alt="Report preview"
-                fill
-                className="object-contain"
-              />
+            <h3 className="text-lg font-semibold mb-2">Uploaded Files</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {filePreviews.map((preview, index) => (
+                <div key={index} className="relative group">
+                    <div className="relative w-full h-32 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                    {files[index].type.startsWith('image/') ? (
+                        <Image
+                            src={preview}
+                            alt={`Report preview ${index + 1}`}
+                            fill
+                            className="object-contain"
+                        />
+                    ) : (
+                        <div className="flex flex-col items-center justify-center h-full">
+                            <FileText className="w-12 h-12 text-gray-400"/>
+                            <span className="text-xs text-center p-1 text-gray-500 truncate">{files[index].name}</span>
+                        </div>
+                    )}
+                    </div>
+                    <button 
+                        onClick={() => removeFile(index)}
+                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        aria-label="Remove file"
+                        disabled={loading}
+                    >
+                        <X className="w-4 h-4"/>
+                    </button>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
-        {file && !loading && (
-          <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-sm text-gray-500 dark:text-gray-400 truncate">
-              Selected file: {file.name}
-            </div>
+        {files.length > 0 && !loading && (
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               onClick={analyzeReport}
-              disabled={loading || !location}
-              className="w-full sm:w-auto"
+              disabled={loading || !location || files.length === 0}
+              className="w-full sm:w-auto text-lg px-8 py-6"
             >
-              {loading ? "Analyzing..." : "Analyze Report"}
+              {loading ? "Analyzing..." : `Analyze ${files.length} File(s)`}
             </Button>
           </div>
         )}

@@ -1,4 +1,5 @@
-export const getUnifiedPrompt = (language: string, location: string) => `Carefully analyze this medical report image and provide a detailed yet simple explanation of the findings. Your goal is to make the analysis easy to understand for someone without a medical background. 
+
+export const getUnifiedPrompt = (language: string, location: string) => `Carefully analyze these medical report images and provide a detailed yet simple explanation of the findings. The images represent a single report, potentially spanning multiple pages. Your goal is to make the analysis easy to understand for someone without a medical background. 
 
 🔹 **IMPORTANT:** The entire response must be generated in **${language}**. Use proper grammar and medical terminology, but ensure the explanation remains easy to understand.
 
