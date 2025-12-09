@@ -326,28 +326,28 @@ export default function SymptomChecker() {
       {result && (
         <div className="space-y-8 animate-in fade-in-50 duration-500">
           <Tabs defaultValue="diseases" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-blue-100/50 p-1 rounded-lg h-auto">
-                <TabsTrigger value="diseases" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-blue-100/50 dark:bg-card/60 p-1 rounded-lg h-auto">
+                <TabsTrigger value="diseases" className="data-[state=active]:bg-white dark:data-[state=active]:bg-primary/20 data-[state=active]:text-blue-600 capitalize">
                   <HeartPulse className="h-4 w-4 mr-1 md:mr-2" />
                   Diseases
                 </TabsTrigger>
-                <TabsTrigger value="precautions" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
+                <TabsTrigger value="precautions" className="data-[state=active]:bg-white dark:data-[state=active]:bg-primary/20 data-[state=active]:text-blue-600 capitalize">
                   <Shield className="h-4 w-4 mr-1 md:mr-2" />
                   Precautions
                 </TabsTrigger>
-                <TabsTrigger value="medications" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
+                <TabsTrigger value="medications" className="data-[state=active]:bg-white dark:data-[state=active]:bg-primary/20 data-[state=active]:text-blue-600 capitalize">
                   <Pill className="h-4 w-4 mr-1 md:mr-2" />
                   Medications
                 </TabsTrigger>
-                <TabsTrigger value="diet" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
+                <TabsTrigger value="diet" className="data-[state=active]:bg-white dark:data-[state=active]:bg-primary/20 data-[state=active]:text-blue-600 capitalize">
                   <Apple className="h-4 w-4 mr-1 md:mr-2" />
                   Diet
                 </TabsTrigger>
-                <TabsTrigger value="workouts" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
+                <TabsTrigger value="workouts" className="data-[state=active]:bg-white dark:data-[state=active]:bg-primary/20 data-[state=active]:text-blue-600 capitalize">
                   <Dumbbell className="h-4 w-4 mr-1 md:mr-2" />
                   Workouts
                 </TabsTrigger>
-                <TabsTrigger value="doctors" className="data-[state=active]:bg-white data-[state=active]:text-blue-600 capitalize">
+                <TabsTrigger value="doctors" className="data-[state=active]:bg-white dark:data-[state=active]:bg-primary/20 data-[state=active]:text-blue-600 capitalize">
                   <Stethoscope className="h-4 w-4 mr-1 md:mr-2" />
                   Doctors
                 </TabsTrigger>
@@ -355,13 +355,13 @@ export default function SymptomChecker() {
 
               <TabsContent value="diseases" className="space-y-6 mt-4">
                 {result.diseases?.map((disease: Disease, index: number) => (
-                  <Card key={index} className="p-6 bg-white/90 backdrop-blur-sm border-white/20 hover:shadow-xl transition-all duration-300">
+                  <Card key={index} className="p-6 bg-white/90 backdrop-blur-sm border-white/20 dark:border-border hover:shadow-xl transition-all duration-300">
                       <div className="flex flex-col sm:flex-row items-start justify-between mb-4 gap-4">
                         <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
                           {disease.name}
                         </h3>
                         <div className="relative flex-shrink-0">
-                          <div className="relative px-4 py-2 rounded-full border border-blue-200 bg-blue-50/50 backdrop-blur-sm">
+                          <div className="relative px-4 py-2 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-card/70 backdrop-blur-sm">
                             <span className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
                               {Math.round(disease.probability * 100)}% Confidence
                             </span>
@@ -377,7 +377,7 @@ export default function SymptomChecker() {
 
               <TabsContent value="precautions" className="space-y-6 mt-4">
                  {result.diseases?.map((disease: Disease, index: number) => (
-                    <Card key={index} className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                    <Card key={index} className="p-6 bg-white/90 backdrop-blur-sm border-white/20 dark:border-border">
                         <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
                           {disease.name} - Precautions
                         </h3>
@@ -394,7 +394,7 @@ export default function SymptomChecker() {
               </TabsContent>
 
               <TabsContent value="medications" className="space-y-6 mt-4">
-                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20 dark:border-border">
                     <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
                         Over-the-Counter
                     </h3>
@@ -422,7 +422,7 @@ export default function SymptomChecker() {
               </TabsContent>
               
                <TabsContent value="diet" className="space-y-6 mt-4">
-                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20 dark:border-border">
                     <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-emerald-600 mb-4">
                         Recommended Foods
                     </h3>
@@ -450,7 +450,7 @@ export default function SymptomChecker() {
               </TabsContent>
 
               <TabsContent value="workouts" className="space-y-6 mt-4">
-                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20 dark:border-border">
                     <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
                         Recommended Exercises
                     </h3>
@@ -466,7 +466,7 @@ export default function SymptomChecker() {
               </TabsContent>
 
               <TabsContent value="doctors" className="space-y-6 mt-4">
-                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20">
+                <Card className="p-6 bg-white/90 backdrop-blur-sm border-white/20 dark:border-border">
                     <h3 className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
                         Recommended Doctors
                     </h3>
@@ -486,3 +486,5 @@ export default function SymptomChecker() {
     </div>
   );
 }
+
+    
